@@ -442,7 +442,7 @@
         showRes('emi-result', `Monthly EMI: $${emi.toFixed(2)}`);
     }
     
-    <!-- Footer Links for AdSense -->
+</script>    <!-- Footer Links for AdSense -->
     <footer style="text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #e2e8f0; color: #64748b;">
         <p>&copy; 2026 Smart-Calc-Hub. All rights reserved.</p>
         <p>
@@ -452,25 +452,6 @@
         </p>
     </footer>
     
-    function calcPct() {
-        const val = parseFloat(document.getElementById('pct-val').value);
-        const total = parseFloat(document.getElementById('pct-total').value);
-        if (!val || !total) return;
-        showRes('pct-result', `Result: ${(val / 100) * total}`);
-    }
-
-    function calcZakat() {
-        const assets = parseFloat(document.getElementById('zakat-assets').value);
-        if (!assets) return;
-        showRes('zakat-result', `Zakat Payable: $${(assets * 0.025).toFixed(2)}`);
-    }
-
-    function showRes(id, txt) {
-        const el = document.getElementById(id);
-        el.innerText = txt;
-        el.style.display = 'block';
-    }
-</script>
 
 </body>
 </html>
