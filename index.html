@@ -13,7 +13,6 @@
             --border-color: #e2e8f0;
             --input-bg: #f1f5f9;
             --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
             --result-bg: #e0e7ff;
             --result-text: #3730a3;
         }
@@ -26,7 +25,6 @@
             --border-color: #334155;
             --input-bg: #334155;
             --primary-color: #6366f1;
-            --primary-hover: #4f46e5;
             --result-bg: #312e81;
             --result-text: #e0e7ff;
         }
@@ -52,11 +50,10 @@
         button.op { background: var(--primary-color); color: white; border-color: var(--primary-color); }
         .input-group { margin-bottom: 15px; }
         .input-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
-        .input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; background: var(--input-bg); color: var(--text-color); }
+        .input-group input { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; background: var(--input-bg); color: var(--text-color); }
         .action-btn { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         .result { margin-top: 15px; padding: 12px; background: var(--result-bg); color: var(--result-text); border-radius: 6px; font-weight: bold; text-align: center; display: none; line-height: 1.6; }
         
-        /* History Box */
         .history-box { margin-top: 15px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; max-height: 120px; overflow-y: auto; font-size: 13px; color: var(--subtext-color); text-align: left; display: none; }
         .history-box h4 { margin: 0 0 5px 0; font-size: 12px; color: var(--primary-color); text-transform: uppercase; }
         .history-item { border-bottom: 1px solid var(--border-color); padding: 3px 0; }
@@ -73,16 +70,16 @@
 
         <!-- Tabs -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('simple')">Simple</button>
-            <button class="tab-btn" onclick="switchTab('sci')">Scientific</button>
-            <button class="tab-btn" onclick="switchTab('age')">Age</button>
-            <button class="tab-btn" onclick="switchTab('bmi')">BMI</button>
-            <button class="tab-btn" onclick="switchTab('emi')">EMI</button>
-            <button class="tab-btn" onclick="switchTab('pct')">Percentage</button>
-            <button class="tab-btn" onclick="switchTab('zakat')">Zakat</button>
-            <button class="tab-btn" onclick="switchTab('discount')">Discount</button>
-            <button class="tab-btn" onclick="switchTab('calorie')">Calories</button>
-            <button class="tab-btn" onclick="switchTab('water')">Water</button>
+            <button class="tab-btn active" onclick="switchTab('simple', event)">Simple</button>
+            <button class="tab-btn" onclick="switchTab('sci', event)">Scientific</button>
+            <button class="tab-btn" onclick="switchTab('age', event)">Age</button>
+            <button class="tab-btn" onclick="switchTab('bmi', event)">BMI</button>
+            <button class="tab-btn" onclick="switchTab('emi', event)">EMI</button>
+            <button class="tab-btn" onclick="switchTab('pct', event)">Percentage</button>
+            <button class="tab-btn" onclick="switchTab('zakat', event)">Zakat</button>
+            <button class="tab-btn" onclick="switchTab('discount', event)">Discount</button>
+            <button class="tab-btn" onclick="switchTab('calorie', event)">Calories</button>
+            <button class="tab-btn" onclick="switchTab('water', event)">Water</button>
         </div>
 
         <!-- Simple Calculator -->
@@ -292,11 +289,13 @@
             }
         }
 
-        function switchTab(tab) {
+        function switchTab(tab, evt) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.calc-sec').forEach(sec => sec.classList.remove('active'));
             
-            event.target.classList.add('active');
+            if (evt && evt.target) {
+                evt.target.classList.add('active');
+            }
             document.getElementById('sec-' + tab).classList.add('active');
         }
 
@@ -381,4 +380,4 @@
             const diffTime = Math.abs(today - dob);
             const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             const totalWeeks = Math.floor(totalDays / 7);
-          
+     
