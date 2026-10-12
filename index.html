@@ -3,246 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#4f46e5">
+<meta name="theme-color" content="#16231F">
 <meta name="description" content="Smart-Calc-Hub: free everyday, scientific, age, BMI, EMI, percentage, Zakat, discount, calorie and water calculators.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🧮%3C/text%3E%3C/svg%3E">
 <title>Smart-Calc-Hub - Free Online Calculators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg-color:#f8fafc;--card-bg:#fff;--text-color:#0f172a;--subtext-color:#64748b;--border-color:#e2e8f0;--input-bg:#f1f5f9;--primary-color:#4f46e5;--result-bg:#e0e7ff;--result-text:#3730a3}
-body.dark-theme{--bg-color:#0f172a;--card-bg:#1e293b;--text-color:#f8fafc;--subtext-color:#94a3b8;--border-color:#334155;--input-bg:#334155;--primary-color:#6366f1;--result-bg:#312e81;--result-text:#e0e7ff}
-*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
-body{background:var(--bg-color);color:var(--text-color);margin:0;padding:20px;display:flex;flex-direction:column;align-items:center;min-height:100vh;transition:background-color .25s,color .25s}
-.container{max-width:600px;width:100%;background:var(--card-bg);padding:25px;border-radius:12px;box-shadow:0 4px 12px #00000012;border:1px solid var(--border-color)}
-.header-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:5px}
-h1{margin:0;color:var(--primary-color);font-size:24px}h2{font-size:21px;margin:8px 0 18px}
-.theme-toggle-btn,.tab-btn,button.btn{border:1px solid var(--border-color);cursor:pointer;font-weight:600}
-.theme-toggle-btn{background:var(--input-bg);color:var(--text-color);padding:7px 12px;border-radius:20px;font-size:14px;white-space:nowrap}
-.subtitle{text-align:center;color:var(--subtext-color);margin:12px 0 20px;font-size:14px;line-height:1.5}
-.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px}
-.tab-btn{padding:8px 12px;background:var(--input-bg);border-radius:6px;color:var(--text-color);font-size:13px}
-.tab-btn.active{background:var(--primary-color);color:#fff;border-color:var(--primary-color)}
+:root{
+  --page:#DCE3DE;--device:#F3F5F1;--ink:#16231F;--muted:#55655F;--line:#C3CCC6;
+  --field:#E6EBE6;--key:#FFFFFF;--key-edge:#BAC4BE;--key-ink:#16231F;
+  --op:#2A3A35;--op-edge:#121C19;--op-ink:#FFFFFF;
+  --accent:#E4561A;--accent-edge:#A93C0C;--accent-ink:#FFFFFF;
+  --clear:#F6D9CE;--clear-edge:#DDB3A3;--clear-ink:#8A2E0B;
+  --result-bg:#16231F;--result-ink:#EAF1EC;
+  --mono:'Chivo Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+  --sans:'Figtree','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
+body.dark-theme{
+  --page:#0D1613;--device:#17231F;--ink:#E9F0EA;--muted:#8FA39B;--line:#2B3B35;
+  --field:#0F1A16;--key:#22332D;--key-edge:#0B1411;--key-ink:#E9F0EA;
+  --op:#3E564D;--op-edge:#1B2A24;--op-ink:#FFFFFF;
+  --accent:#FF7A2E;--accent-edge:#B8480F;--accent-ink:#1A0E06;
+  --clear:#4A2A1E;--clear-edge:#25140D;--clear-ink:#FFD9C8;
+  --result-bg:#E9F0EA;--result-ink:#16231F;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 0;transition:background-color .25s,color .25s}
+button,input,select{font-family:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.app{width:100%;max-width:940px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.brand{font-family:var(--mono);font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0}
+.tagline{margin:2px 0 0;color:var(--muted);font-size:14px}
+.theme-toggle-btn{background:var(--device);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+
+.layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;align-items:start}
+.tabs{display:flex;flex-direction:column;gap:2px}
+.tab-group{margin:14px 0 4px;padding-left:12px;font-size:13px;font-weight:600;color:var(--muted)}
+.tab-group:first-child{margin-top:0}
+.tab-btn{display:block;width:100%;text-align:left;background:transparent;border:0;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:9px 12px;font-size:15px;font-weight:500;cursor:pointer}
+.tab-btn:hover{background:var(--device)}
+.tab-btn.active{background:var(--device);border-left-color:var(--accent);font-weight:700}
+
+.device{background:var(--device);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 1px 0 #ffffff80 inset,0 18px 40px -22px #0a1a1566}
 .calc-sec{display:none}.calc-sec.active{display:block}
-.display{width:100%;height:50px;background:var(--input-bg);border:1px solid var(--border-color);border-radius:6px;text-align:right;padding:10px;font-size:20px;margin-bottom:15px;color:var(--text-color)}
+h2{font-size:20px;margin:0 0 18px;letter-spacing:-.01em}
+
+.display{width:100%;height:84px;background:var(--field);border:1px solid var(--line);border-radius:14px;text-align:right;padding:0 18px;font-family:var(--mono);font-size:clamp(26px,6vw,36px);font-weight:500;margin-bottom:16px;box-shadow:inset 0 2px 6px #0000001a}
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-/* Modern, phone-style simple calculator only */
-#sec-simple{max-width:390px;margin:0 auto}
-#sec-simple h2{text-align:center;margin:8px 0 16px}
-#sec-simple .display{height:88px;border:0;border-radius:16px;padding:18px 16px;font-size:clamp(30px,7vw,42px);font-weight:500;letter-spacing:.3px;margin-bottom:16px;background:var(--input-bg);box-shadow:inset 0 1px 2px #00000008}
-#sec-simple .grid{gap:10px}
-#sec-simple button.btn{height:62px;padding:0;font-size:22px;border:0;border-radius:18px;background:var(--input-bg);box-shadow:0 2px 4px #0000000a;transition:transform .08s,filter .12s}
-#sec-simple button.btn:active{transform:scale(.96);filter:brightness(.96)}
-#sec-simple button.op{background:#e0e7ff;color:#3730a3;border:0}
-body.dark-theme #sec-simple button.op{background:#3730a3;color:#fff}
-#sec-simple button.clear-key{background:#fee2e2;color:#b91c1c}
-body.dark-theme #sec-simple button.clear-key{background:#7f1d1d;color:#fee2e2}
-#sec-simple button.equals-key{background:var(--primary-color);color:#fff}
-#sec-simple button.zero-key{grid-column:span 2;text-align:left;padding-left:25px}
-button.btn{padding:14px 8px;font-size:18px;border-radius:6px;background:var(--card-bg);color:var(--text-color);min-width:0}
-button.btn:active{background:var(--input-bg)}button.op{background:var(--primary-color);color:#fff;border-color:var(--primary-color)}
-.input-group{margin-bottom:15px}.input-group label{display:block;margin-bottom:5px;font-weight:600;font-size:14px}
-.input-group input,.input-group select{width:100%;padding:11px;border:1px solid var(--border-color);border-radius:6px;font-size:16px;background:var(--input-bg);color:var(--text-color)}
-.action-btn{width:100%;padding:12px;background:var(--primary-color);color:#fff;border:0;border-radius:6px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:4px}
-.result{margin-top:15px;padding:12px;background:var(--result-bg);color:var(--result-text);border-radius:6px;font-weight:600;text-align:center;display:none;line-height:1.65;overflow-wrap:anywhere}
-.note{font-size:12px;color:var(--subtext-color);line-height:1.5;margin-top:10px}
-.history-box{margin-top:15px;background:var(--input-bg);border:1px solid var(--border-color);border-radius:6px;padding:10px;max-height:150px;overflow-y:auto;font-size:13px;color:var(--subtext-color);text-align:left;display:none}
-.history-box h4{margin:0 0 5px;font-size:12px;color:var(--primary-color);text-transform:uppercase}
-.history-item{border-bottom:1px solid var(--border-color);padding:5px 0;overflow-wrap:anywhere}
-footer{text-align:center;margin-top:28px;padding:18px 8px;border-top:1px solid var(--border-color);color:var(--subtext-color);width:100%;max-width:600px;font-size:13px;line-height:1.8}
-footer a{color:var(--primary-color);text-decoration:none;margin:0 6px}
-@media(max-width:480px){body{padding:10px}.container{padding:16px}h1{font-size:20px}.tab-btn{padding:8px 10px}.grid{gap:7px}button.btn{padding:13px 5px;font-size:17px}.header-top{align-items:flex-start}#sec-simple .grid{gap:8px}#sec-simple button.btn{height:58px;border-radius:16px;font-size:21px}#sec-simple .display{height:82px}}
+button.btn{height:58px;border:0;border-radius:12px;background:var(--key);color:var(--key-ink);font-family:var(--mono);font-size:20px;font-weight:500;cursor:pointer;box-shadow:0 3px 0 var(--key-edge);transition:transform .06s,box-shadow .06s;min-width:0;padding:0}
+button.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--key-edge)}
+button.btn.op{background:var(--op);color:var(--op-ink);box-shadow:0 3px 0 var(--op-edge)}
+button.btn.op:active{box-shadow:0 1px 0 var(--op-edge)}
+button.btn.fn{background:var(--field);box-shadow:0 3px 0 var(--key-edge);font-size:17px}
+button.btn.clear-key{background:var(--clear);color:var(--clear-ink);box-shadow:0 3px 0 var(--clear-edge)}
+button.btn.equals-key{background:var(--accent);color:var(--accent-ink);box-shadow:0 3px 0 var(--accent-edge)}
+button.btn.equals-key:active{box-shadow:0 1px 0 var(--accent-edge)}
+button.btn.wide{grid-column:span 2}
+.note{font-size:13px;color:var(--muted);line-height:1.55;margin:14px 0 0;max-width:62ch}
+
+.history-box{margin-top:16px;border-top:1px dashed var(--line);padding-top:12px;max-height:150px;overflow-y:auto;display:none}
+.history-box h4{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--muted)}
+.history-item{font-family:var(--mono);font-size:13px;padding:5px 0;color:var(--muted);overflow-wrap:anywhere;border-bottom:1px solid var(--line)}
+.history-item:last-child{border-bottom:0}
+
+.form{max-width:460px}
+.input-group{margin-bottom:16px}
+.input-group label{display:block;margin-bottom:6px;font-weight:600;font-size:14px}
+.input-group input,.input-group select{width:100%;height:48px;padding:0 14px;background:var(--field);border:1px solid var(--line);border-radius:10px;font-size:16px;box-shadow:inset 0 2px 4px #0000000f}
+.input-group input:focus,.input-group select:focus{border-color:var(--accent)}
+.date-row{position:relative;display:flex;gap:8px;align-items:center}
+.date-row #dob-text{flex:1;min-width:0;font-family:var(--mono);letter-spacing:.04em}
+.icon-btn{flex:0 0 48px;height:48px;border:1px solid var(--line);border-radius:10px;background:var(--key);box-shadow:0 3px 0 var(--key-edge);font-size:19px;cursor:pointer;padding:0;transition:transform .06s,box-shadow .06s}
+.icon-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--key-edge)}
+.dob-native{position:absolute;right:0;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0}
+.f-tools{display:grid;grid-template-columns:minmax(0,1fr) 190px 150px;gap:10px;margin-bottom:12px}
+.f-tools input,.f-tools select{height:46px;padding:0 14px;background:var(--field);border:1px solid var(--line);border-radius:10px;font-size:16px;width:100%}
+.f-cat h3{margin:22px 0 10px;font-size:16px;color:var(--muted);font-weight:700}
+.f-item{background:var(--key);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.f-item summary{cursor:pointer;padding:12px 14px;list-style:none;display:flex;flex-direction:column;gap:4px}
+.f-item summary::-webkit-details-marker{display:none}
+.f-name{font-weight:700;font-size:15px}
+.f-imp{font-size:13px;color:var(--ink);background:var(--field);border-radius:8px;padding:4px 10px;align-self:flex-start;border-inline-start:3px solid var(--accent)}
+.f-formula{font-family:var(--mono);font-size:14px;color:var(--accent);overflow-wrap:anywhere;line-height:1.5}
+.f-item[open]{border-color:var(--accent)}
+.f-body{padding:2px 14px 14px;border-top:1px dashed var(--line)}
+.f-desc{margin:10px 0;font-size:14px;color:var(--muted)}
+.f-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:12px}
+.f-fields .input-group{margin:0}
+.f-fields .input-group label{font-size:13px}
+.f-body .action-btn{height:44px;font-size:15px}
+.f-result{display:none;margin-top:12px;padding:12px 14px;background:var(--result-bg);color:var(--result-ink);border-radius:10px;border-left:6px solid var(--accent);font-family:var(--mono);font-size:14px;line-height:1.7;white-space:pre-line;overflow-wrap:anywhere}
+@media(max-width:760px){.f-tools{grid-template-columns:minmax(0,1fr)}}
+.action-btn{width:100%;height:50px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 var(--accent-edge);transition:transform .06s,box-shadow .06s}
+.action-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--accent-edge)}
+.result{display:none;margin-top:18px;padding:16px 18px;background:var(--result-bg);color:var(--result-ink);border-radius:12px;font-family:var(--mono);font-size:15px;line-height:1.8;overflow-wrap:anywhere;border-left:6px solid var(--accent)}
+
+footer{width:100%;max-width:940px;margin-top:32px;padding:20px 4px 28px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px}
+footer p{margin:0}
+footer a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;margin-right:14px}
+footer a:last-child{margin-right:0}
+
+@media(max-width:760px){
+  body{padding:16px 10px 0}
+  .layout{grid-template-columns:minmax(0,1fr);gap:14px}
+  .tabs{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:thin}
+  .tab-group{display:none}
+  .tab-btn{width:auto;flex:0 0 auto;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--device)}
+  .tab-btn.active{background:var(--ink);color:var(--device);border-color:var(--ink)}
+  .device{padding:16px;border-radius:18px}
+  button.btn{height:54px;font-size:19px}
+  .display{height:76px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<main class="container">
-  <div class="header-top">
-    <h1>Smart-Calc-Hub</h1>
+<div class="app">
+  <header class="topbar">
+    <div>
+      <h1 class="brand">Smart-Calc-Hub</h1>
+      <p class="tagline">Free calculators for everyday math, money and health.</p>
+    </div>
     <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()">🌙 Dark</button>
-  </div>
-  <p class="subtitle">Your ultimate destination for everyday math, scientific equations, age, health, and financial calculations.</p>
+  </header>
 
-  <nav class="tabs" aria-label="Calculator categories">
-    <button class="tab-btn active" type="button" data-tab="simple" onclick="switchTab('simple',this)">Simple</button>
-    <button class="tab-btn" type="button" data-tab="sci" onclick="switchTab('sci',this)">Scientific</button>
-    <button class="tab-btn" type="button" data-tab="age" onclick="switchTab('age',this)">Age</button>
-    <button class="tab-btn" type="button" data-tab="bmi" onclick="switchTab('bmi',this)">BMI</button>
-    <button class="tab-btn" type="button" data-tab="emi" onclick="switchTab('emi',this)">EMI</button>
-    <button class="tab-btn" type="button" data-tab="pct" onclick="switchTab('pct',this)">Percentage</button>
-    <button class="tab-btn" type="button" data-tab="zakat" onclick="switchTab('zakat',this)">Zakat</button>
-    <button class="tab-btn" type="button" data-tab="discount" onclick="switchTab('discount',this)">Discount</button>
-    <button class="tab-btn" type="button" data-tab="calorie" onclick="switchTab('calorie',this)">Calories</button>
-    <button class="tab-btn" type="button" data-tab="water" onclick="switchTab('water',this)">Water</button>
-  </nav>
+  <div class="layout">
+    <nav class="tabs" aria-label="Calculator categories">
+      <div class="tab-group">Everyday</div>
+      <button class="tab-btn active" type="button" data-tab="simple" onclick="switchTab('simple',this)">Simple</button>
+      <button class="tab-btn" type="button" data-tab="sci" onclick="switchTab('sci',this)">Scientific</button>
+      <button class="tab-btn" type="button" data-tab="pct" onclick="switchTab('pct',this)">Percentage</button>
+      <button class="tab-btn" type="button" data-tab="discount" onclick="switchTab('discount',this)">Discount</button>
+      <button class="tab-btn" type="button" data-tab="age" onclick="switchTab('age',this)">Age</button>
+      <button class="tab-btn" type="button" data-tab="land" onclick="switchTab('land',this)">Land area</button>
+      <button class="tab-btn" type="button" data-tab="units" onclick="switchTab('units',this)">Unit converter</button>
+      <div class="tab-group">Study</div>
+      <button class="tab-btn" type="button" data-tab="formulas" onclick="switchTab('formulas',this)">📐 فارمولا · Formulas</button>
+      <div class="tab-group">Money</div>
+      <button class="tab-btn" type="button" data-tab="emi" onclick="switchTab('emi',this)">EMI</button>
+      <button class="tab-btn" type="button" data-tab="zakat" onclick="switchTab('zakat',this)">Zakat</button>
+      <button class="tab-btn" type="button" data-tab="gst" onclick="switchTab('gst',this)">GST / Tax</button>
+      <button class="tab-btn" type="button" data-tab="gold" onclick="switchTab('gold',this)">Gold value</button>
+      <div class="tab-group">Health</div>
+      <button class="tab-btn" type="button" data-tab="bmi" onclick="switchTab('bmi',this)">BMI</button>
+      <button class="tab-btn" type="button" data-tab="calorie" onclick="switchTab('calorie',this)">Calories</button>
+      <button class="tab-btn" type="button" data-tab="water" onclick="switchTab('water',this)">Water</button>
+    </nav>
 
-  <section id="sec-simple" class="calc-sec active simple-calc">
-    <h2>Simple Calculator</h2>
-    <input id="simple-display" class="display" type="text" value="0" readonly aria-label="Calculator display">
-    <div class="grid">
-      <button class="btn clear-key" onclick="clearDisp('simple')">AC</button><button class="btn" onclick="backspace('simple')" aria-label="Backspace">⌫</button><button class="btn" onclick="pressKey('simple','%')">%</button><button class="btn op" onclick="pressKey('simple','/')">÷</button>
-      <button class="btn" onclick="pressKey('simple','7')">7</button><button class="btn" onclick="pressKey('simple','8')">8</button><button class="btn" onclick="pressKey('simple','9')">9</button><button class="btn op" onclick="pressKey('simple','*')">×</button>
-      <button class="btn" onclick="pressKey('simple','4')">4</button><button class="btn" onclick="pressKey('simple','5')">5</button><button class="btn" onclick="pressKey('simple','6')">6</button><button class="btn op" onclick="pressKey('simple','-')">−</button>
-      <button class="btn" onclick="pressKey('simple','1')">1</button><button class="btn" onclick="pressKey('simple','2')">2</button><button class="btn" onclick="pressKey('simple','3')">3</button><button class="btn op" onclick="pressKey('simple','+')">+</button>
-      <button class="btn zero-key" onclick="pressKey('simple','0')">0</button><button class="btn" onclick="pressKey('simple','.')">.</button><button class="btn equals-key" onclick="calcResult('simple')">=</button>
-    </div>
-    <div id="simple-history" class="history-box"><h4>History</h4><div id="simple-history-list"></div></div>
-  </section>
+    <main class="device">
+      <section id="sec-simple" class="calc-sec active">
+        <h2>Simple calculator</h2>
+        <input id="simple-display" class="display" type="text" value="0" readonly aria-label="Calculator display">
+        <div class="grid">
+          <button class="btn clear-key" onclick="clearDisp('simple')">AC</button><button class="btn fn" onclick="backspace('simple')" aria-label="Backspace">⌫</button><button class="btn fn" onclick="pressKey('simple','%')">%</button><button class="btn op" onclick="pressKey('simple','/')">÷</button>
+          <button class="btn" onclick="pressKey('simple','7')">7</button><button class="btn" onclick="pressKey('simple','8')">8</button><button class="btn" onclick="pressKey('simple','9')">9</button><button class="btn op" onclick="pressKey('simple','*')">×</button>
+          <button class="btn" onclick="pressKey('simple','4')">4</button><button class="btn" onclick="pressKey('simple','5')">5</button><button class="btn" onclick="pressKey('simple','6')">6</button><button class="btn op" onclick="pressKey('simple','-')">−</button>
+          <button class="btn" onclick="pressKey('simple','1')">1</button><button class="btn" onclick="pressKey('simple','2')">2</button><button class="btn" onclick="pressKey('simple','3')">3</button><button class="btn op" onclick="pressKey('simple','+')">+</button>
+          <button class="btn wide" onclick="pressKey('simple','0')">0</button><button class="btn" onclick="pressKey('simple','.')">.</button><button class="btn equals-key" onclick="calcResult('simple')">=</button>
+        </div>
+        <div id="simple-history" class="history-box"><h4>History</h4><div id="simple-history-list"></div></div>
+      </section>
 
-  <section id="sec-sci" class="calc-sec">
-    <h2>Scientific Calculator</h2>
-    <input id="sci-display" class="display" type="text" value="0" readonly aria-label="Scientific calculator display">
-    <div class="grid">
-      <button class="btn" onclick="sciFunc('sin')">sin</button><button class="btn" onclick="sciFunc('cos')">cos</button><button class="btn" onclick="sciFunc('tan')">tan</button><button class="btn" onclick="clearDisp('sci')">C</button>
-      <button class="btn" onclick="sciFunc('sqrt')">√</button><button class="btn" onclick="sciFunc('sq')">x²</button><button class="btn" onclick="sciFunc('log')">log</button><button class="btn" onclick="backspace('sci')">⌫</button>
-      <button class="btn" onclick="pressKey('sci','7')">7</button><button class="btn" onclick="pressKey('sci','8')">8</button><button class="btn" onclick="pressKey('sci','9')">9</button><button class="btn op" onclick="pressKey('sci','/')">÷</button>
-      <button class="btn" onclick="pressKey('sci','4')">4</button><button class="btn" onclick="pressKey('sci','5')">5</button><button class="btn" onclick="pressKey('sci','6')">6</button><button class="btn op" onclick="pressKey('sci','*')">×</button>
-      <button class="btn" onclick="pressKey('sci','1')">1</button><button class="btn" onclick="pressKey('sci','2')">2</button><button class="btn" onclick="pressKey('sci','3')">3</button><button class="btn op" onclick="pressKey('sci','-')">−</button>
-      <button class="btn" style="grid-column:span 2" onclick="pressKey('sci','0')">0</button><button class="btn" onclick="pressKey('sci','.')">.</button><button class="btn op" onclick="pressKey('sci','+')">+</button>
-      <button class="btn" onclick="pressKey('sci','(')">(</button><button class="btn" onclick="pressKey('sci',')')">)</button><button class="btn" onclick="pressKey('sci','**')">xʸ</button><button class="btn op" onclick="calcResult('sci')">=</button>
-    </div>
-    <p class="note">Trigonometric functions use degrees. Use parentheses for grouped calculations.</p>
-    <div id="sci-history" class="history-box"><h4>History</h4><div id="sci-history-list"></div></div>
-  </section>
+      <section id="sec-sci" class="calc-sec">
+        <h2>Scientific calculator</h2>
+        <input id="sci-display" class="display" type="text" value="0" readonly aria-label="Scientific calculator display">
+        <div class="grid">
+          <button class="btn fn" onclick="sciFunc('sin')">sin</button><button class="btn fn" onclick="sciFunc('cos')">cos</button><button class="btn fn" onclick="sciFunc('tan')">tan</button><button class="btn clear-key" onclick="clearDisp('sci')">C</button>
+          <button class="btn fn" onclick="sciFunc('sqrt')">√</button><button class="btn fn" onclick="sciFunc('sq')">x²</button><button class="btn fn" onclick="sciFunc('log')">log</button><button class="btn fn" onclick="backspace('sci')" aria-label="Backspace">⌫</button>
+          <button class="btn" onclick="pressKey('sci','7')">7</button><button class="btn" onclick="pressKey('sci','8')">8</button><button class="btn" onclick="pressKey('sci','9')">9</button><button class="btn op" onclick="pressKey('sci','/')">÷</button>
+          <button class="btn" onclick="pressKey('sci','4')">4</button><button class="btn" onclick="pressKey('sci','5')">5</button><button class="btn" onclick="pressKey('sci','6')">6</button><button class="btn op" onclick="pressKey('sci','*')">×</button>
+          <button class="btn" onclick="pressKey('sci','1')">1</button><button class="btn" onclick="pressKey('sci','2')">2</button><button class="btn" onclick="pressKey('sci','3')">3</button><button class="btn op" onclick="pressKey('sci','-')">−</button>
+          <button class="btn wide" onclick="pressKey('sci','0')">0</button><button class="btn" onclick="pressKey('sci','.')">.</button><button class="btn op" onclick="pressKey('sci','+')">+</button>
+          <button class="btn fn" onclick="pressKey('sci','(')">(</button><button class="btn fn" onclick="pressKey('sci',')')">)</button><button class="btn fn" onclick="pressKey('sci','**')">xʸ</button><button class="btn equals-key" onclick="calcResult('sci')">=</button>
+        </div>
+        <p class="note">Trigonometric functions use degrees. Use parentheses for grouped calculations.</p>
+        <div id="sci-history" class="history-box"><h4>History</h4><div id="sci-history-list"></div></div>
+      </section>
 
-  <section id="sec-age" class="calc-sec">
-    <h2>Age Calculator</h2>
-    <div class="input-group"><label for="dob">Select Date of Birth:</label><input type="date" id="dob"></div>
-    <button class="action-btn" onclick="calcAge()">Calculate Age</button><div id="age-result" class="result" aria-live="polite"></div>
-  </section>
+      <section id="sec-age" class="calc-sec">
+        <h2>Age calculator</h2>
+        <div class="form">
+          <div class="input-group">
+            <label for="dob-text">Date of birth</label>
+            <div class="date-row">
+              <input type="text" id="dob-text" inputmode="numeric" autocomplete="bday" maxlength="10" placeholder="DD/MM/YYYY" oninput="onDobType(this)">
+              <button type="button" class="icon-btn" id="dob-edit-btn" onclick="editDob()" aria-label="Type date manually" title="Type date">✏️</button>
+              <button type="button" class="icon-btn" onclick="openCalendar()" aria-label="Open calendar" title="Open calendar">📅</button>
+              <input type="date" id="dob" class="dob-native" tabindex="-1" aria-hidden="true" onchange="onDobPick(this)">
+            </div>
+            <p class="note" style="margin-top:6px">Type the date (e.g. 15/08/1995), or tap the calendar to pick it.</p>
+          </div>
+          <button class="action-btn" onclick="calcAge()">Calculate age</button>
+          <div id="age-result" class="result" aria-live="polite"></div>
+        </div>
+      </section>
 
-  <section id="sec-bmi" class="calc-sec">
-    <h2>BMI Calculator</h2>
-    <div class="input-group"><label for="bmi-weight">Weight (kg):</label><input type="number" id="bmi-weight" min="1" step="any" placeholder="e.g. 70"></div>
-    <div class="input-group"><label for="bmi-height">Height (cm):</label><input type="number" id="bmi-height" min="1" step="any" placeholder="e.g. 175"></div>
-    <button class="action-btn" onclick="calcBMI()">Calculate BMI</button><div id="bmi-result" class="result" aria-live="polite"></div>
-    <p class="note">BMI is a screening measure, not a medical diagnosis. Adult categories may not apply to children or teens.</p>
-  </section>
+      <section id="sec-bmi" class="calc-sec">
+        <h2>BMI calculator</h2>
+        <div class="form">
+          <div class="input-group"><label for="bmi-weight">Weight (kg)</label><input type="number" id="bmi-weight" min="1" step="any" placeholder="e.g. 70"></div>
+          <div class="input-group"><label for="bmi-height">Height (cm)</label><input type="number" id="bmi-height" min="1" step="any" placeholder="e.g. 175"></div>
+          <button class="action-btn" onclick="calcBMI()">Calculate BMI</button>
+          <div id="bmi-result" class="result" aria-live="polite"></div>
+        </div>
+        <p class="note">BMI is a screening measure, not a medical diagnosis. Adult categories may not apply to children or teens.</p>
+      </section>
 
-  <section id="sec-emi" class="calc-sec">
-    <h2>Loan EMI Calculator</h2>
-    <div class="input-group"><label for="emi-amount">Loan Amount:</label><input type="number" id="emi-amount" min="0" step="any" placeholder="e.g. 100000"></div>
-    <div class="input-group"><label for="emi-rate">Annual Interest Rate (%):</label><input type="number" id="emi-rate" min="0" step="any" placeholder="e.g. 10"></div>
-    <div class="input-group"><label for="emi-years">Tenure (Years):</label><input type="number" id="emi-years" min="0.01" step="any" placeholder="e.g. 2"></div>
-    <button class="action-btn" onclick="calcEMI()">Calculate EMI</button><div id="emi-result" class="result" aria-live="polite"></div>
-    <p class="note">Estimate only. Actual lender fees, taxes, and repayment terms may differ.</p>
-  </section>
+      <section id="sec-emi" class="calc-sec">
+        <h2>Loan EMI calculator</h2>
+        <div class="form">
+          <div class="input-group"><label for="emi-amount">Loan amount</label><input type="number" id="emi-amount" min="0" step="any" placeholder="e.g. 100000"></div>
+          <div class="input-group"><label for="emi-rate">Annual interest rate (%)</label><input type="number" id="emi-rate" min="0" step="any" placeholder="e.g. 10"></div>
+          <div class="input-group"><label for="emi-years">Tenure (years)</label><input type="number" id="emi-years" min="0.01" step="any" placeholder="e.g. 2"></div>
+          <button class="action-btn" onclick="calcEMI()">Calculate EMI</button>
+          <div id="emi-result" class="result" aria-live="polite"></div>
+        </div>
+        <p class="note">Estimate only. Actual lender fees, taxes, and repayment terms may differ.</p>
+      </section>
 
-  <section id="sec-pct" class="calc-sec">
-    <h2>Percentage Calculator</h2>
-    <div class="input-group"><label for="pct-val">Percentage (%):</label><input type="number" id="pct-val" step="any" placeholder="e.g. 15"></div>
-    <div class="input-group"><label for="pct-total">Total Amount:</label><input type="number" id="pct-total" step="any" placeholder="e.g. 500"></div>
-    <button class="action-btn" onclick="calcPct()">Calculate Percentage</button><div id="pct-result" class="result" aria-live="polite"></div>
-  </section>
+      <section id="sec-pct" class="calc-sec">
+        <h2>Percentage calculator</h2>
+        <div class="form">
+          <div class="input-group"><label for="pct-val">Percentage (%)</label><input type="number" id="pct-val" step="any" placeholder="e.g. 15"></div>
+          <div class="input-group"><label for="pct-total">Total amount</label><input type="number" id="pct-total" step="any" placeholder="e.g. 500"></div>
+          <button class="action-btn" onclick="calcPct()">Calculate percentage</button>
+          <div id="pct-result" class="result" aria-live="polite"></div>
+        </div>
+      </section>
 
-  <section id="sec-zakat" class="calc-sec">
-    <h2>Zakat Calculator</h2>
-    <div class="input-group"><label for="zakat-assets">Eligible Zakatable Wealth:</label><input type="number" id="zakat-assets" min="0" step="any" placeholder="e.g. 200000"></div>
-    <button class="action-btn" onclick="calcZakat()">Calculate Zakat (2.5%)</button><div id="zakat-result" class="result" aria-live="polite"></div>
-    <p class="note">This is a simple 2.5% estimate, not a religious ruling. Nisab, eligible assets, liabilities, and the relevant lunar-year conditions may affect your obligation. Consult a qualified scholar for your circumstances.</p>
-  </section>
+      <section id="sec-zakat" class="calc-sec">
+        <h2>Zakat calculator</h2>
+        <div class="form">
+          <div class="input-group"><label for="zakat-assets">Eligible zakatable wealth</label><input type="number" id="zakat-assets" min="0" step="any" placeholder="e.g. 200000"></div>
+          <button class="action-btn" onclick="calcZakat()">Calculate Zakat (2.5%)</button>
+          <div id="zakat-result" class="result" aria-live="polite"></div>
+        </div>
+        <p class="note">This is a simple 2.5% estimate, not a religious ruling. Nisab, eligible assets, liabilities, and the relevant lunar-year conditions may affect your obligation. Consult a qualified scholar for your circumstances.</p>
+      </section>
 
-  <section id="sec-discount" class="calc-sec">
-    <h2>Discount Calculator</h2>
-    <div class="input-group"><label for="disc-price">Original Price:</label><input type="number" id="disc-price" min="0" step="any" placeholder="e.g. 1000"></div>
-    <div class="input-group"><label for="disc-off">Discount Percentage (%):</label><input type="number" id="disc-off" min="0" max="100" step="any" placeholder="e.g. 20"></div>
-    <button class="action-btn" onclick="calcDiscount()">Calculate Discount</button><div id="discount-result" class="result" aria-live="polite"></div>
-  </section>
-
-  <section id="sec-calorie" class="calc-sec">
-    <h2>Daily Calorie Calculator</h2>
-    <div class="input-group"><label for="cal-weight">Weight (kg):</label><input type="number" id="cal-weight" min="1" step="any" placeholder="e.g. 70"></div>
-    <div class="input-group"><label for="cal-height">Height (cm):</label><input type="number" id="cal-height" min="1" step="any" placeholder="e.g. 175"></div>
-    <div class="input-group"><label for="cal-age">Age (years):</label><input type="number" id="cal-age" min="18" max="120" step="1" placeholder="e.g. 25"></div>
-    <div class="input-group"><label for="cal-sex">Formula setting:</label><select id="cal-sex"><option value="male">Male equation</option><option value="female">Female equation</option></select></div>
-    <div class="input-group"><label for="cal-activity">Activity level:</label><select id="cal-activity"><option value="1.2">Sedentary (little or no exercise)</option><option value="1.375">Light exercise (1–3 days/week)</option><option value="1.55">Moderate exercise (3–5 days/week)</option><option value="1.725">Very active (6–7 days/week)</option><option value="1.9">Extra active (very hard exercise/physical job)</option></select></div>
-    <button class="action-btn" onclick="calcCalories()">Estimate Daily Calories</button><div id="calorie-result" class="result" aria-live="polite"></div>
-    <p class="note">Uses the Mifflin–St Jeor equation to estimate maintenance calories for adults. This is not medical advice and may not fit every person.</p>
-  </section>
-
-  <section id="sec-water" class="calc-sec">
-    <h2>Water Intake Calculator</h2>
-    <div class="input-group"><label for="water-weight">Weight (kg):</label><input type="number" id="water-weight" min="1" step="any" placeholder="e.g. 70"></div>
-    <button class="action-btn" onclick="calcWater()">Estimate Water Intake</button><div id="water-result" class="result" aria-live="polite"></div>
-    <p class="note">This is a rough guide only. Needs vary with climate, exercise, pregnancy, diet, and health conditions. Follow medical advice if you have fluid restrictions.</p>
-  </section>
-</main>
-
-<footer>
-  <p>© <span id="year"></span> Smart-Calc-Hub. All rights reserved.</p>
-  <p><a href="privacy.html">Privacy Policy</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a></p>
-</footer>
-
-<script>
-'use strict';
-const exprs = { simple: '', sci: '' };
-const historyData = { simple: [], sci: [] };
-let justCalculated = { simple: false, sci: false };
-
-document.getElementById('year').textContent = new Date().getFullYear();
-document.getElementById('dob').max = new Date().toISOString().slice(0,10);
-
-function toggleTheme() {
-  document.body.classList.toggle('dark-theme');
-  const dark = document.body.classList.contains('dark-theme');
-  document.getElementById('theme-btn').textContent = dark ? '☀️ Light' : '🌙 Dark';
-}
-function switchTab(tab, button) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  document.querySelectorAll('.calc-sec').forEach(s => s.classList.toggle('active', s.id === 'sec-' + tab));
-}
-function updateDisplay(type, value) {
-  document.getElementById(type + '-display').value = value || '0';
-}
-function pressKey(type, key) {
-  let current = exprs[type];
-  if (justCalculated[type] && /[0-9.(]/.test(key)) current = '';
-  justCalculated[type] = false;
-  if (key === '.') {
-    const lastNumber = current.split(/[+\-*/()%]/).pop();
-    if (lastNumber.includes('.')) return;
-  }
-  if (['+', '-', '*', '/', '**', '%'].includes(key)) {
-    if (!current && key !== '-') return;
-    if (/[+\-*/%]$/.test(current) && key !== '-') current = current.replace(/[+\-*/%]+$/, '');
-  }
-  exprs[type] = current + key;
-  updateDisplay(type, exprs[type]);
-}
-function clearDisp(type) { exprs[type] = ''; justCalculated[type] = false; updateDisplay(type, '0'); }
-function backspace(type) { exprs[type] = exprs[type].slice(0,-1); justCalculated[type] = false; updateDisplay(type, exprs[type]); }
-function safeCalculate(expression) {
-  const expr = String(expression).replace(/\s+/g,'');
-  if (!expr || expr.length > 120) throw new Error('Enter a valid calculation.');
-  if (!/^[0-9+\-*/%.()]+$/.test(expr)) throw new Error('Invalid characters in calculation.');
-  if (/\/\s*0(?:\.0*)?(?![0-9.])/.test(expr)) throw new Error('Cannot divide by zero.');
-  // Parse arithmetic without eval: recursive descent parser.
-  let i = 0;
-  function number() {
-    let start = i;
-    if (expr[i] === '+' || expr[i] === '-') i++;
-    let digits = false;
-    while (i < expr.length && /[0-9.]/.test(expr[i])) { if (expr[i] >= '0' && expr[i] <= '9') digits = true; i++; }
-    if (!digits || (expr.slice(start,i).match(/\./g)||[]).length > 1) throw new Error('Invalid number.');
-    let n = Number(expr.slice(start,i));
-    if (!Number.isFinite(n)) throw new Error('Invalid number.');
-    return n;
-  }
-  function factor() {
-    let base;
-    if (expr[i] === '(') {
-      i++; base = sum();
-      if (expr[i] !== ')') throw new Error('Missing closing parenthesis.');
-      i++;
-    } else {
-      base = number();
-    }
-    if (expr.slice(i, i + 2) === '**') {
-      i += 2;
-      const exponent = factor();
-      base = Math.pow(base, exponent);
-      if (!Number.isFinite(base)) throw new Error('Result is outside the supported range.');
-    }
-    return base;
-  }
-  function term() {
-    let v = factor();
-    while (i < expr.length && (expr[i] === '*' || expr[i] === '/' || expr[i] === '%')) {
-      let op = expr[i++], rhs = factor();
-      if ((op === '/' || op === '%') && rhs === 0) throw new Error('Cannot div
+      <section id="sec-discount" class="calc-sec">
+        <h2>Discount calculator</h2>
+        <div class="form">
+         
