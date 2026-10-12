@@ -41,7 +41,7 @@
         
         p.subtitle { text-align: center; color: var(--subtext-color); margin-bottom: 20px; font-size: 14px; }
         .tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 20px; }
-        .tab-btn { padding: 8px 14px; border: 1px solid var(--border-color); background: var(--input-bg); border-radius: 6px; cursor: pointer; font-weight: 600; color: var(--text-color); }
+        .tab-btn { padding: 8px 14px; border: 1px solid var(--border-color); background: var(--input-bg); border-radius: 6px; cursor: pointer; font-weight: 600; color: var(--text-color); font-size: 13px; }
         .tab-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
         .calc-sec { display: none; }
         .calc-sec.active { display: block; }
@@ -52,9 +52,14 @@
         button.op { background: var(--primary-color); color: white; border-color: var(--primary-color); }
         .input-group { margin-bottom: 15px; }
         .input-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
-        .input-group input { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; background: var(--input-bg); color: var(--text-color); }
+        .input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; background: var(--input-bg); color: var(--text-color); }
         .action-btn { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         .result { margin-top: 15px; padding: 12px; background: var(--result-bg); color: var(--result-text); border-radius: 6px; font-weight: bold; text-align: center; display: none; line-height: 1.6; }
+        
+        /* History Box */
+        .history-box { margin-top: 15px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; max-height: 120px; overflow-y: auto; font-size: 13px; color: var(--subtext-color); text-align: left; display: none; }
+        .history-box h4 { margin: 0 0 5px 0; font-size: 12px; color: var(--primary-color); text-transform: uppercase; }
+        .history-item { border-bottom: 1px solid var(--border-color); padding: 3px 0; }
     </style>
 </head>
 <body>
@@ -68,13 +73,16 @@
 
         <!-- Tabs -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('simple')">Simple Calc</button>
+            <button class="tab-btn active" onclick="switchTab('simple')">Simple</button>
             <button class="tab-btn" onclick="switchTab('sci')">Scientific</button>
             <button class="tab-btn" onclick="switchTab('age')">Age</button>
             <button class="tab-btn" onclick="switchTab('bmi')">BMI</button>
-            <button class="tab-btn" onclick="switchTab('emi')">Loan EMI</button>
+            <button class="tab-btn" onclick="switchTab('emi')">EMI</button>
             <button class="tab-btn" onclick="switchTab('pct')">Percentage</button>
             <button class="tab-btn" onclick="switchTab('zakat')">Zakat</button>
+            <button class="tab-btn" onclick="switchTab('discount')">Discount</button>
+            <button class="tab-btn" onclick="switchTab('calorie')">Calories</button>
+            <button class="tab-btn" onclick="switchTab('water')">Water</button>
         </div>
 
         <!-- Simple Calculator -->
@@ -100,6 +108,10 @@
                 <button class="btn op" onclick="calcResult('simple')">=</button>
                 <button class="btn" style="grid-column: span 2;" onclick="pressKey('simple', '0')">0</button>
                 <button class="btn" onclick="pressKey('simple', '.')">.</button>
+            </div>
+            <div id="simple-history" class="history-box">
+                <h4>History</h4>
+                <div id="simple-history-list"></div>
             </div>
         </div>
 
@@ -131,6 +143,10 @@
                 <button class="btn" style="grid-column: span 2;" onclick="pressKey('sci', '0')">0</button>
                 <button class="btn" onclick="pressKey('sci', '.')">.</button>
                 <button class="btn op" onclick="calcResult('sci')">=</button>
+            </div>
+            <div id="sci-history" class="history-box">
+                <h4>History</h4>
+                <div id="sci-history-list"></div>
             </div>
         </div>
 
@@ -205,6 +221,51 @@
             <div id="zakat-result" class="result"></div>
         </div>
 
+        <!-- Discount Calculator -->
+        <div id="sec-discount" class="calc-sec">
+            <h2>Discount Calculator</h2>
+            <div class="input-group">
+                <label for="disc-price">Original Price:</label>
+                <input type="number" id="disc-price" placeholder="e.g. 1000">
+            </div>
+            <div class="input-group">
+                <label for="disc-off">Discount Percentage (%):</label>
+                <input type="number" id="disc-off" placeholder="e.g. 20">
+            </div>
+            <button class="action-btn" onclick="calcDiscount()">Calculate Discount</button>
+            <div id="discount-result" class="result"></div>
+        </div>
+
+        <!-- Calorie Calculator -->
+        <div id="sec-calorie" class="calc-sec">
+            <h2>Daily Calorie Calculator</h2>
+            <div class="input-group">
+                <label for="cal-weight">Weight (kg):</label>
+                <input type="number" id="cal-weight" placeholder="e.g. 70">
+            </div>
+            <div class="input-group">
+                <label for="cal-height">Height (cm):</label>
+                <input type="number" id="cal-height" placeholder="e.g. 175">
+            </div>
+            <div class="input-group">
+                <label for="cal-age">Age (Years):</label>
+                <input type="number" id="cal-age" placeholder="e.g. 25">
+            </div>
+            <button class="action-btn" onclick="calcCalories()">Calculate Calories</button>
+            <div id="calorie-result" class="result"></div>
+        </div>
+
+        <!-- Water Intake Calculator -->
+        <div id="sec-water" class="calc-sec">
+            <h2>Water Intake Calculator</h2>
+            <div class="input-group">
+                <label for="water-weight">Weight (kg):</label>
+                <input type="number" id="water-weight" placeholder="e.g. 70">
+            </div>
+            <button class="action-btn" onclick="calcWater()">Calculate Water Needed</button>
+            <div id="water-result" class="result"></div>
+        </div>
+
     </div>
 
     <!-- Footer Links for AdSense -->
@@ -219,6 +280,7 @@
 
     <script>
         let exprs = { simple: '', sci: '' };
+        let historyData = { simple: [], sci: [] };
 
         function toggleTheme() {
             document.body.classList.toggle('dark-theme');
@@ -253,11 +315,22 @@
             document.getElementById(type + '-display').value = exprs[type] || '0';
         }
 
+        function addHistory(type, item) {
+            historyData[type].unshift(item);
+            if (historyData[type].length > 5) historyData[type].pop();
+            
+            const listEl = document.getElementById(type + '-history-list');
+            listEl.innerHTML = historyData[type].map(h => `<div class="history-item">${h}</div>`).join('');
+            document.getElementById(type + '-history').style.display = 'block';
+        }
+
         function calcResult(type) {
             try {
-                let res = eval(exprs[type]);
+                let currentExpr = exprs[type];
+                let res = eval(currentExpr);
                 document.getElementById(type + '-display').value = res;
                 exprs[type] = res.toString();
+                addHistory(type, currentExpr + ' = ' + res);
             } catch (e) {
                 document.getElementById(type + '-display').value = 'Error';
                 exprs[type] = '';
@@ -269,14 +342,17 @@
             try {
                 let val = eval(exprs['sci'] || '0');
                 let res = 0;
-                if (func === 'sin') res = Math.sin(val * Math.PI / 180);
-                else if (func === 'cos') res = Math.cos(val * Math.PI / 180);
-                else if (func === 'tan') res = Math.tan(val * Math.PI / 180);
-                else if (func === 'sqrt') res = Math.sqrt(val);
-                else if (func === 'sq') res = val * val;
+                let label = '';
+                if (func === 'sin') { res = Math.sin(val * Math.PI / 180); label = `sin(${val})`; }
+                else if (func === 'cos') { res = Math.cos(val * Math.PI / 180); label = `cos(${val})`; }
+                else if (func === 'tan') { res = Math.tan(val * Math.PI / 180); label = `tan(${val})`; }
+                else if (func === 'sqrt') { res = Math.sqrt(val); label = `√(${val})`; }
+                else if (func === 'sq') { res = val * val; label = `(${val})²`; }
 
+                res = parseFloat(res.toFixed(4));
                 exprs['sci'] = res.toString();
                 display.value = exprs['sci'];
+                addHistory('sci', label + ' = ' + res);
             } catch (e) {
                 display.value = 'Error';
                 exprs['sci'] = '';
@@ -305,52 +381,4 @@
             const diffTime = Math.abs(today - dob);
             const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             const totalWeeks = Math.floor(totalDays / 7);
-            const totalMonths = (years * 12) + months;
-
-            let resultText = `Age: ${years} Years, ${months} Months, ${days} Days<br>` +
-                             `Total Months: ${totalMonths}<br>` +
-                             `Total Weeks: ${totalWeeks}<br>` +
-                             `Total Days: ${totalDays}`;
-            showRes('age-result', resultText);
-        }
-
-        function calcBMI() {
-            const w = parseFloat(document.getElementById('bmi-weight').value);
-            const h = parseFloat(document.getElementById('bmi-height').value) / 100;
-            if (!w || !h) return;
-            const bmi = (w / (h * h)).toFixed(1);
-            let status = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Normal weight' : 'Overweight';
-            showRes('bmi-result', 'BMI: ' + bmi + ' (' + status + ')');
-        }
-
-        function calcEMI() {
-            const p = parseFloat(document.getElementById('emi-amount').value);
-            const r = parseFloat(document.getElementById('emi-rate').value) / 12 / 100;
-            const n = parseFloat(document.getElementById('emi-years').value) * 12;
-            if (!p || !r || !n) return;
-            const emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-            showRes('emi-result', 'Monthly EMI: ' + emi.toFixed(2));
-        }
-
-        function calcPct() {
-            const val = parseFloat(document.getElementById('pct-val').value);
-            const total = parseFloat(document.getElementById('pct-total').value);
-            if (!val || !total) return;
-            showRes('pct-result', 'Result: ' + ((val / 100) * total));
-        }
-
-        function calcZakat() {
-            const assets = parseFloat(document.getElementById('zakat-assets').value);
-            if (!assets) return;
-            showRes('zakat-result', 'Zakat Payable: ' + (assets * 0.025).toLocaleString());
-        }
-
-        function showRes(id, htmlContent) {
-            const el = document.getElementById(id);
-            el.innerHTML = htmlContent;
-            el.style.display = 'block';
-        }
-    </script>
-</body>
-    </html>
-    
+          
