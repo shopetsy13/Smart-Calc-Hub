@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart-Calc-Hub | Multi-Tool Calculator Suite</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            padding: 10px 18px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .calc-card {
+            display: none;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        .calc-card.active {
+            display: block;
+        }
+
+        .calc-card h2 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Smart-Calc-Hub</h1>
+        <p>A complete multi-tool calculator hub for age, health, finance, and everyday math calculations.</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchCalc('age')">Age</button>
+        <button class="tab-btn" onclick="switchCalc('bmi')">BMI</button>
+        <button class="tab-btn" onclick="switchCalc('emi')">Loan EMI</button>
+        <button class="tab-btn" onclick="switchCalc('percentage')">Percentage</button>
+        <button class="tab-btn" onclick="switchCalc('zakat')">Zakat</button>
+    </div>
+
+    <!-- Age Calculator -->
+    <div id="age" class="calc-card active">
+        <h2>Age Calculator</h2>
+        <div class="input-group">
+            <label>Date of Birth</label>
+            <input type="date" id="dob">
+        </div>
+        <button class="btn" onclick="calcAge()">Calculate Age</button>
+        <div id="age-result" class="result-box" style="display:none;"></div>
+    </div>
+
+    <!-- BMI Calculator -->
+    <div id="bmi" class="calc-card">
+        <h2>BMI Calculator</h2>
+        <div class="input-group">
+            <label>Weight (kg)</label>
+            <input type="number" id="bmi-weight" placeholder="e.g. 70">
+        </div>
+        <div class="input-group">
+            <label>Height (cm)</label>
+            <input type="number" id="bmi-height" placeholder="e.g. 175">
+        </div>
+        <button class="btn" onclick="calcBMI()">Calculate BMI</button>
+        <div id="bmi-result" class="result-box" style="display:none;"></div>
+    </div>
+
+    <!-- EMI Calculator -->
+    <div id="emi" class="calc-card">
+        <h2>Loan EMI Calculator</h2>
+        <div class="input-group">
+            <label>Loan Amount</label>
+            <input type="number" id="emi-amount" placeholder="e.g. 100000">
+        </div>
+        <div class="input-group">
+            <label>Annual Interest Rate (%)</label>
+            <input type="number" id="emi-rate" placeholder="e.g. 8.5" step="0.1">
+        </div>
+        <div class="input-group">
+            <label>Tenure (Years)</label>
+            <input type="number" id="emi-years" placeholder="e.g. 5">
+        </div>
+        <button class="btn" onclick="calcEMI()">Calculate EMI</button>
+        <div id="emi-result" class="result-box" style="display:none;"></div>
+    </div>
+
+    <!-- Percentage Calculator -->
+    <div id="percentage" class="calc-card">
+        <h2>Percentage Calculator</h2>
+        <div class="input-group">
+            <label>What is (%)</label>
+            <input type="number" id="pct-val" placeholder="e.g. 15">
+        </div>
+        <div class="input-group">
+            <label>Of total value</label>
+            <input type="number" id="pct-total" placeholder="e.g. 200">
+        </div>
+        <button class="btn" onclick="calcPct()">Calculate</button>
+        <div id="pct-result" class="result-box" style="display:none;"></div>
+    </div>
+
+    <!-- Zakat Calculator -->
+    <div id="zakat" class="calc-card">
+        <h2>Zakat Calculator</h2>
+        <div class="input-group">
+            <label>Total Savings & Assets Value</label>
+            <input type="number" id="zakat-assets" placeholder="e.g. 500000">
+        </div>
+        <button class="btn" onclick="calcZakat()">Calculate Zakat (2.5%)</button>
+        <div id="zakat-result" class="result-box" style="display:none;"></div>
+    </div>
+</div>
+
+<script>
+    function switchCalc(id) {
+        document.querySelectorAll('.calc-card').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        event.target.classList.add('active');
+    }
+
+    function calcAge() {
+        const dob = new Date(document.getElementById('dob').value);
+        if (isNaN(dob)) return;
+        const diff = new Date(Date.now() - dob.getTime());
+        const age = Math.abs(diff.getUTCFullYear() - 1970);
+        showRes('age-result', `Your Age: ${age} years old`);
+    }
+
+    function calcBMI() {
+        const w = parseFloat(document.getElementById('bmi-weight').value);
+        const h = parseFloat(document.getElementById('bmi-height').value) / 100;
+        if (!w || !h) return;
+        const bmi = (w / (h * h)).toFixed(1);
+        let status = bmi < 18.5 ? "Underweight" : bmi < 25 ? "Normal weight" : "Overweight";
+        showRes('bmi-result', `BMI: ${bmi} (${status})`);
+    }
+
+    function calcEMI() {
+        const p = parseFloat(document.getElementById('emi-amount').value);
+        const r = parseFloat(document.getElementById('emi-rate').value) / 12 / 100;
+        const n = parseFloat(document.getElementById('emi-years').value) * 12;
+        if (!p || !r || !n) return;
+        const emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        showRes('emi-result', `Monthly EMI: $${emi.toFixed(2)}`);
+    }
+
+    function calcPct() {
+        const val = parseFloat(document.getElementById('pct-val').value);
+        const total = parseFloat(document.getElementById('pct-total').value);
+        if (!val || !total) return;
+        showRes('pct-result', `Result: ${(val / 100) * total}`);
+    }
+
+    function calcZakat() {
+        const assets = parseFloat(document.getElementById('zakat-assets').value);
+        if (!assets) return;
+        showRes('zakat-result', `Zakat Payable: $${(assets * 0.025).toFixed(2)}`);
+    }
+
+    function showRes(id, txt) {
+        const el = document.getElementById(id);
+        el.innerText = txt;
+        el.style.display = 'block';
+    }
+</script>
+
+</body>
+          </html>
+          
