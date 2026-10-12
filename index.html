@@ -441,7 +441,17 @@
         const emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
         showRes('emi-result', `Monthly EMI: $${emi.toFixed(2)}`);
     }
-
+    
+    <!-- Footer Links for AdSense -->
+    <footer style="text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #e2e8f0; color: #64748b;">
+        <p>&copy; 2026 Smart-Calc-Hub. All rights reserved.</p>
+        <p>
+            <a href="privacy.html" style="color: #4f46e5; text-decoration: none; margin: 0 10px;">Privacy Policy</a> | 
+            <a href="about.html" style="color: #4f46e5; text-decoration: none; margin: 0 10px;">About Us</a> | 
+            <a href="contact.html" style="color: #4f46e5; text-decoration: none; margin: 0 10px;">Contact Us</a>
+        </p>
+    </footer>
+    
     function calcPct() {
         const val = parseFloat(document.getElementById('pct-val').value);
         const total = parseFloat(document.getElementById('pct-total').value);
