@@ -1,273 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#4f46e5">
-<meta name="description" content="Smart-Calc-Hub: free everyday, scientific, age, BMI, EMI, percentage, Zakat, discount, calorie and water calculators.">
-<title>Smart-Calc-Hub - Free Online Calculators</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Smart-Calc-Hub — free online calculators for everyday use.">
+<title>Smart-Calc-Hub – Free Online Calculators</title>
 <style>
-:root{--bg-color:#f8fafc;--card-bg:#fff;--text-color:#0f172a;--subtext-color:#64748b;--border-color:#e2e8f0;--input-bg:#f1f5f9;--primary-color:#4f46e5;--result-bg:#e0e7ff;--result-text:#3730a3}
-body.dark-theme{--bg-color:#0f172a;--card-bg:#1e293b;--text-color:#f8fafc;--subtext-color:#94a3b8;--border-color:#334155;--input-bg:#334155;--primary-color:#6366f1;--result-bg:#312e81;--result-text:#e0e7ff}
-*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
-body{background:var(--bg-color);color:var(--text-color);margin:0;padding:20px;display:flex;flex-direction:column;align-items:center;min-height:100vh;transition:background-color .25s,color .25s}
-.container{max-width:600px;width:100%;background:var(--card-bg);padding:25px;border-radius:12px;box-shadow:0 4px 12px #00000012;border:1px solid var(--border-color)}
-.header-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:5px}
-h1{margin:0;color:var(--primary-color);font-size:24px}h2{font-size:21px;margin:8px 0 18px}
-.theme-toggle-btn,.tab-btn,button.btn{border:1px solid var(--border-color);cursor:pointer;font-weight:600}
-.theme-toggle-btn{background:var(--input-bg);color:var(--text-color);padding:7px 12px;border-radius:20px;font-size:14px;white-space:nowrap}
-.subtitle{text-align:center;color:var(--subtext-color);margin:12px 0 20px;font-size:14px;line-height:1.5}
-.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px}
-.tab-btn{padding:8px 12px;background:var(--input-bg);border-radius:6px;color:var(--text-color);font-size:13px}
-.tab-btn.active{background:var(--primary-color);color:#fff;border-color:var(--primary-color)}
-.calc-sec{display:none}.calc-sec.active{display:block}
-.display{width:100%;height:50px;background:var(--input-bg);border:1px solid var(--border-color);border-radius:6px;text-align:right;padding:10px;font-size:20px;margin-bottom:15px;color:var(--text-color)}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-button.btn{padding:14px 8px;font-size:18px;border-radius:6px;background:var(--card-bg);color:var(--text-color);min-width:0}
-button.btn:active{background:var(--input-bg)}button.op{background:var(--primary-color);color:#fff;border-color:var(--primary-color)}
-.input-group{margin-bottom:15px}.input-group label{display:block;margin-bottom:5px;font-weight:600;font-size:14px}
-.input-group input,.input-group select{width:100%;padding:11px;border:1px solid var(--border-color);border-radius:6px;font-size:16px;background:var(--input-bg);color:var(--text-color)}
-.action-btn{width:100%;padding:12px;background:var(--primary-color);color:#fff;border:0;border-radius:6px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:4px}
-.result{margin-top:15px;padding:12px;background:var(--result-bg);color:var(--result-text);border-radius:6px;font-weight:600;text-align:center;display:none;line-height:1.65;overflow-wrap:anywhere}
-.note{font-size:12px;color:var(--subtext-color);line-height:1.5;margin-top:10px}
-.history-box{margin-top:15px;background:var(--input-bg);border:1px solid var(--border-color);border-radius:6px;padding:10px;max-height:150px;overflow-y:auto;font-size:13px;color:var(--subtext-color);text-align:left;display:none}
-.history-box h4{margin:0 0 5px;font-size:12px;color:var(--primary-color);text-transform:uppercase}
-.history-item{border-bottom:1px solid var(--border-color);padding:5px 0;overflow-wrap:anywhere}
-footer{text-align:center;margin-top:28px;padding:18px 8px;border-top:1px solid var(--border-color);color:var(--subtext-color);width:100%;max-width:600px;font-size:13px;line-height:1.8}
-footer a{color:var(--primary-color);text-decoration:none;margin:0 6px}
-@media(max-width:480px){body{padding:10px}.container{padding:16px}h1{font-size:20px}.tab-btn{padding:8px 10px}.grid{gap:7px}button.btn{padding:13px 5px;font-size:17px}.header-top{align-items:flex-start}}
+:root{--bg:#f4f7fb;--panel:#fff;--text:#172033;--muted:#667085;--primary:#4f46e5;--primary2:#3730a3;--border:#e4e7ec;--field:#fff;--shadow:0 8px 28px rgba(20,30,60,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+body.dark{--bg:#101522;--panel:#1b2232;--text:#edf1fa;--muted:#aab4c8;--primary:#8b85ff;--primary2:#aaa5ff;--border:#30394d;--field:#141b29;--shadow:0 8px 28px rgba(0,0,0,.22)}
+header{background:linear-gradient(120deg,#3730a3,#6366f1);color:white;padding:28px 16px 22px;text-align:center}
+.header-inner{max-width:1100px;margin:auto}header h1{margin:0;font-size:clamp(1.8rem,5vw,2.7rem)}header p{margin:8px 0 0;color:#e5e7ff}
+.top-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+button,.btn{border:0;border-radius:10px;padding:10px 14px;background:var(--primary);color:white;font-weight:650;cursor:pointer;font-size:.95rem;transition:transform .12s,opacity .12s}
+button:hover,.btn:hover{opacity:.9}button:active{transform:scale(.98)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #a5b4fc;outline-offset:2px}
+.top-actions button{background:#fff;color:#3730a3}
+main{max-width:1100px;margin:24px auto;padding:0 16px}
+.notice{color:var(--muted);text-align:center;margin:0 0 18px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.tab{background:var(--panel);color:var(--text);border:1px solid var(--border);padding:9px 13px}
+.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+.card h2{margin:0 0 6px;font-size:1.35rem}.sub{color:var(--muted);margin:0 0 20px;font-size:.95rem}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}
+label{font-weight:650;font-size:.92rem}
+input,select{width:100%;min-width:0;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--field);color:var(--text);font:inherit}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
+.result{display:none;margin-top:18px;padding:16px;border-radius:12px;background:color-mix(in srgb,var(--primary) 10%,var(--panel));border:1px solid color-mix(in srgb,var(--primary) 35%,var(--border))}
+.result.show{display:block}.result strong{display:block;font-size:1.5rem;color:var(--primary);overflow-wrap:anywhere}.result p{margin:5px 0 0;color:var(--muted)}
+.side h3{margin:0 0 12px}.history-list{padding:0;margin:0;list-style:none}.history-list li{padding:10px 0;border-bottom:1px solid var(--border);font-size:.9rem;overflow-wrap:anywhere}.history-list li:last-child{border-bottom:0}.empty{color:var(--muted);font-size:.9rem}
+footer{text-align:center;padding:28px 16px 40px;color:var(--muted)}footer a{color:var(--primary);margin:0 8px;text-decoration:none}footer a:hover{text-decoration:underline}
+.hidden{display:none!important}.small{font-size:.85rem;color:var(--muted)}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.side{order:2}.card{padding:17px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.tabs{gap:6px}.tab{padding:8px 10px;font-size:.88rem}}
 </style>
 </head>
 <body>
-<main class="container">
-  <div class="header-top">
-    <h1>Smart-Calc-Hub</h1>
-    <button class="theme-toggle-btn" id="theme-btn" type="button" onclick="toggleTheme()">🌙 Dark</button>
-  </div>
-  <p class="subtitle">Your ultimate destination for everyday math, scientific equations, age, health, and financial calculations.</p>
-
-  <nav class="tabs" aria-label="Calculator categories">
-    <button class="tab-btn active" type="button" data-tab="simple" onclick="switchTab('simple',this)">Simple</button>
-    <button class="tab-btn" type="button" data-tab="sci" onclick="switchTab('sci',this)">Scientific</button>
-    <button class="tab-btn" type="button" data-tab="age" onclick="switchTab('age',this)">Age</button>
-    <button class="tab-btn" type="button" data-tab="bmi" onclick="switchTab('bmi',this)">BMI</button>
-    <button class="tab-btn" type="button" data-tab="emi" onclick="switchTab('emi',this)">EMI</button>
-    <button class="tab-btn" type="button" data-tab="pct" onclick="switchTab('pct',this)">Percentage</button>
-    <button class="tab-btn" type="button" data-tab="zakat" onclick="switchTab('zakat',this)">Zakat</button>
-    <button class="tab-btn" type="button" data-tab="discount" onclick="switchTab('discount',this)">Discount</button>
-    <button class="tab-btn" type="button" data-tab="calorie" onclick="switchTab('calorie',this)">Calories</button>
-    <button class="tab-btn" type="button" data-tab="water" onclick="switchTab('water',this)">Water</button>
-  </nav>
-
-  <section id="sec-simple" class="calc-sec active">
-    <h2>Simple Calculator</h2>
-    <input id="simple-display" class="display" type="text" value="0" readonly aria-label="Calculator display">
-    <div class="grid">
-      <button class="btn" onclick="clearDisp('simple')">C</button><button class="btn" onclick="backspace('simple')">⌫</button><button class="btn op" onclick="pressKey('simple','/')">÷</button><button class="btn op" onclick="pressKey('simple','*')">×</button>
-      <button class="btn" onclick="pressKey('simple','7')">7</button><button class="btn" onclick="pressKey('simple','8')">8</button><button class="btn" onclick="pressKey('simple','9')">9</button><button class="btn op" onclick="pressKey('simple','-')">−</button>
-      <button class="btn" onclick="pressKey('simple','4')">4</button><button class="btn" onclick="pressKey('simple','5')">5</button><button class="btn" onclick="pressKey('simple','6')">6</button><button class="btn op" onclick="pressKey('simple','+')">+</button>
-      <button class="btn" onclick="pressKey('simple','1')">1</button><button class="btn" onclick="pressKey('simple','2')">2</button><button class="btn" onclick="pressKey('simple','3')">3</button><button class="btn op" onclick="calcResult('simple')">=</button>
-      <button class="btn" style="grid-column:span 2" onclick="pressKey('simple','0')">0</button><button class="btn" onclick="pressKey('simple','.')">.</button><button class="btn" onclick="pressKey('simple','%')">%</button>
-    </div>
-    <div id="simple-history" class="history-box"><h4>History</h4><div id="simple-history-list"></div></div>
-  </section>
-
-  <section id="sec-sci" class="calc-sec">
-    <h2>Scientific Calculator</h2>
-    <input id="sci-display" class="display" type="text" value="0" readonly aria-label="Scientific calculator display">
-    <div class="grid">
-      <button class="btn" onclick="sciFunc('sin')">sin</button><button class="btn" onclick="sciFunc('cos')">cos</button><button class="btn" onclick="sciFunc('tan')">tan</button><button class="btn" onclick="clearDisp('sci')">C</button>
-      <button class="btn" onclick="sciFunc('sqrt')">√</button><button class="btn" onclick="sciFunc('sq')">x²</button><button class="btn" onclick="sciFunc('log')">log</button><button class="btn" onclick="backspace('sci')">⌫</button>
-      <button class="btn" onclick="pressKey('sci','7')">7</button><button class="btn" onclick="pressKey('sci','8')">8</button><button class="btn" onclick="pressKey('sci','9')">9</button><button class="btn op" onclick="pressKey('sci','/')">÷</button>
-      <button class="btn" onclick="pressKey('sci','4')">4</button><button class="btn" onclick="pressKey('sci','5')">5</button><button class="btn" onclick="pressKey('sci','6')">6</button><button class="btn op" onclick="pressKey('sci','*')">×</button>
-      <button class="btn" onclick="pressKey('sci','1')">1</button><button class="btn" onclick="pressKey('sci','2')">2</button><button class="btn" onclick="pressKey('sci','3')">3</button><button class="btn op" onclick="pressKey('sci','-')">−</button>
-      <button class="btn" style="grid-column:span 2" onclick="pressKey('sci','0')">0</button><button class="btn" onclick="pressKey('sci','.')">.</button><button class="btn op" onclick="pressKey('sci','+')">+</button>
-      <button class="btn" onclick="pressKey('sci','(')">(</button><button class="btn" onclick="pressKey('sci',')')">)</button><button class="btn" onclick="pressKey('sci','**')">xʸ</button><button class="btn op" onclick="calcResult('sci')">=</button>
-    </div>
-    <p class="note">Trigonometric functions use degrees. Use parentheses for grouped calculations.</p>
-    <div id="sci-history" class="history-box"><h4>History</h4><div id="sci-history-list"></div></div>
-  </section>
-
-  <section id="sec-age" class="calc-sec">
-    <h2>Age Calculator</h2>
-    <div class="input-group"><label for="dob">Select Date of Birth:</label><input type="date" id="dob"></div>
-    <button class="action-btn" onclick="calcAge()">Calculate Age</button><div id="age-result" class="result" aria-live="polite"></div>
-  </section>
-
-  <section id="sec-bmi" class="calc-sec">
-    <h2>BMI Calculator</h2>
-    <div class="input-group"><label for="bmi-weight">Weight (kg):</label><input type="number" id="bmi-weight" min="1" step="any" placeholder="e.g. 70"></div>
-    <div class="input-group"><label for="bmi-height">Height (cm):</label><input type="number" id="bmi-height" min="1" step="any" placeholder="e.g. 175"></div>
-    <button class="action-btn" onclick="calcBMI()">Calculate BMI</button><div id="bmi-result" class="result" aria-live="polite"></div>
-    <p class="note">BMI is a screening measure, not a medical diagnosis. Adult categories may not apply to children or teens.</p>
-  </section>
-
-  <section id="sec-emi" class="calc-sec">
-    <h2>Loan EMI Calculator</h2>
-    <div class="input-group"><label for="emi-amount">Loan Amount:</label><input type="number" id="emi-amount" min="0" step="any" placeholder="e.g. 100000"></div>
-    <div class="input-group"><label for="emi-rate">Annual Interest Rate (%):</label><input type="number" id="emi-rate" min="0" step="any" placeholder="e.g. 10"></div>
-    <div class="input-group"><label for="emi-years">Tenure (Years):</label><input type="number" id="emi-years" min="0.01" step="any" placeholder="e.g. 2"></div>
-    <button class="action-btn" onclick="calcEMI()">Calculate EMI</button><div id="emi-result" class="result" aria-live="polite"></div>
-    <p class="note">Estimate only. Actual lender fees, taxes, and repayment terms may differ.</p>
-  </section>
-
-  <section id="sec-pct" class="calc-sec">
-    <h2>Percentage Calculator</h2>
-    <div class="input-group"><label for="pct-val">Percentage (%):</label><input type="number" id="pct-val" step="any" placeholder="e.g. 15"></div>
-    <div class="input-group"><label for="pct-total">Total Amount:</label><input type="number" id="pct-total" step="any" placeholder="e.g. 500"></div>
-    <button class="action-btn" onclick="calcPct()">Calculate Percentage</button><div id="pct-result" class="result" aria-live="polite"></div>
-  </section>
-
-  <section id="sec-zakat" class="calc-sec">
-    <h2>Zakat Calculator</h2>
-    <div class="input-group"><label for="zakat-assets">Eligible Zakatable Wealth:</label><input type="number" id="zakat-assets" min="0" step="any" placeholder="e.g. 200000"></div>
-    <button class="action-btn" onclick="calcZakat()">Calculate Zakat (2.5%)</button><div id="zakat-result" class="result" aria-live="polite"></div>
-    <p class="note">This is a simple 2.5% estimate, not a religious ruling. Nisab, eligible assets, liabilities, and the relevant lunar-year conditions may affect your obligation. Consult a qualified scholar for your circumstances.</p>
-  </section>
-
-  <section id="sec-discount" class="calc-sec">
-    <h2>Discount Calculator</h2>
-    <div class="input-group"><label for="disc-price">Original Price:</label><input type="number" id="disc-price" min="0" step="any" placeholder="e.g. 1000"></div>
-    <div class="input-group"><label for="disc-off">Discount Percentage (%):</label><input type="number" id="disc-off" min="0" max="100" step="any" placeholder="e.g. 20"></div>
-    <button class="action-btn" onclick="calcDiscount()">Calculate Discount</button><div id="discount-result" class="result" aria-live="polite"></div>
-  </section>
-
-  <section id="sec-calorie" class="calc-sec">
-    <h2>Daily Calorie Calculator</h2>
-    <div class="input-group"><label for="cal-weight">Weight (kg):</label><input type="number" id="cal-weight" min="1" step="any" placeholder="e.g. 70"></div>
-    <div class="input-group"><label for="cal-height">Height (cm):</label><input type="number" id="cal-height" min="1" step="any" placeholder="e.g. 175"></div>
-    <div class="input-group"><label for="cal-age">Age (years):</label><input type="number" id="cal-age" min="18" max="120" step="1" placeholder="e.g. 25"></div>
-    <div class="input-group"><label for="cal-sex">Formula setting:</label><select id="cal-sex"><option value="male">Male equation</option><option value="female">Female equation</option></select></div>
-    <div class="input-group"><label for="cal-activity">Activity level:</label><select id="cal-activity"><option value="1.2">Sedentary (little or no exercise)</option><option value="1.375">Light exercise (1–3 days/week)</option><option value="1.55">Moderate exercise (3–5 days/week)</option><option value="1.725">Very active (6–7 days/week)</option><option value="1.9">Extra active (very hard exercise/physical job)</option></select></div>
-    <button class="action-btn" onclick="calcCalories()">Estimate Daily Calories</button><div id="calorie-result" class="result" aria-live="polite"></div>
-    <p class="note">Uses the Mifflin–St Jeor equation to estimate maintenance calories for adults. This is not medical advice and may not fit every person.</p>
-  </section>
-
-  <section id="sec-water" class="calc-sec">
-    <h2>Water Intake Calculator</h2>
-    <div class="input-group"><label for="water-weight">Weight (kg):</label><input type="number" id="water-weight" min="1" step="any" placeholder="e.g. 70"></div>
-    <button class="action-btn" onclick="calcWater()">Estimate Water Intake</button><div id="water-result" class="result" aria-live="polite"></div>
-    <p class="note">This is a rough guide only. Needs vary with climate, exercise, pregnancy, diet, and health conditions. Follow medical advice if you have fluid restrictions.</p>
-  </section>
+<header><div class="header-inner">
+<h1>🧮 Smart-Calc-Hub</h1><p>Free Online Calculators for Everyday Life</p>
+<div class="top-actions"><button id="themeBtn" type="button">🌙 Dark mode</button><button id="clearHistoryTop" type="button">Clear history</button></div>
+</div></header>
+<main>
+<p class="notice">Choose a calculator below. Enter your values and press <b>Calculate</b>.</p>
+<nav class="tabs" id="tabs" aria-label="Calculator types"></nav>
+<div class="layout">
+<section class="card" aria-live="polite">
+<h2 id="calcTitle">Simple Calculator</h2><p class="sub" id="calcDesc">Perform basic arithmetic.</p>
+<form id="calcForm"><div class="form-grid" id="fields"></div>
+<div class="actions"><button type="submit">Calculate</button><button type="button" class="secondary" id="resetBtn">Reset</button></div></form>
+<div class="result" id="resultBox" role="status"><span id="resultLabel">Result</span><strong id="resultValue"></strong><p id="resultNote"></p></div>
+</section>
+<aside class="card side"><h3>Recent calculations</h3><p class="small">Saved in this browser on this device only.</p><ul class="history-list" id="historyList"></ul><button type="button" class="secondary" id="clearHistory" style="width:100%;margin-top:12px">Clear history</button></aside>
+</div>
 </main>
-
 <footer>
-  <p>© <span id="year"></span> Smart-Calc-Hub. All rights reserved.</p>
-  <p><a href="privacy.html">Privacy Policy</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a></p>
+<div>© <span id="year"></span> Smart-Calc-Hub. For informational use.</div>
+<p><a href="#about" id="aboutLink">About</a><a href="#privacy" id="privacyLink">Privacy</a><a href="mailto:contact@example.com" id="contactLink">Contact</a></p>
+<p class="small" id="footerInfo">Calculations are performed in your browser. Please verify important financial or health decisions independently.</p>
 </footer>
-
 <script>
 'use strict';
-const exprs = { simple: '', sci: '' };
-const historyData = { simple: [], sci: [] };
-let justCalculated = { simple: false, sci: false };
-
-document.getElementById('year').textContent = new Date().getFullYear();
-document.getElementById('dob').max = new Date().toISOString().slice(0,10);
-
-function toggleTheme() {
-  document.body.classList.toggle('dark-theme');
-  const dark = document.body.classList.contains('dark-theme');
-  document.getElementById('theme-btn').textContent = dark ? '☀️ Light' : '🌙 Dark';
-}
-function switchTab(tab, button) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  document.querySelectorAll('.calc-sec').forEach(s => s.classList.toggle('active', s.id === 'sec-' + tab));
-}
-function updateDisplay(type, value) {
-  document.getElementById(type + '-display').value = value || '0';
-}
-function pressKey(type, key) {
-  let current = exprs[type];
-  if (justCalculated[type] && /[0-9.(]/.test(key)) current = '';
-  justCalculated[type] = false;
-  if (key === '.') {
-    const lastNumber = current.split(/[+\-*/()%]/).pop();
-    if (lastNumber.includes('.')) return;
-  }
-  if (['+', '-', '*', '/', '**', '%'].includes(key)) {
-    if (!current && key !== '-') return;
-    if (/[+\-*/%]$/.test(current) && key !== '-') current = current.replace(/[+\-*/%]+$/, '');
-  }
-  exprs[type] = current + key;
-  updateDisplay(type, exprs[type]);
-}
-function clearDisp(type) { exprs[type] = ''; justCalculated[type] = false; updateDisplay(type, '0'); }
-function backspace(type) { exprs[type] = exprs[type].slice(0,-1); justCalculated[type] = false; updateDisplay(type, exprs[type]); }
-function safeCalculate(expression) {
-  const expr = String(expression).replace(/\s+/g,'');
-  if (!expr || expr.length > 120) throw new Error('Enter a valid calculation.');
-  if (!/^[0-9+\-*/%.()]+$/.test(expr)) throw new Error('Invalid characters in calculation.');
-  if (/\/\s*0(?:\.0*)?(?![0-9.])/.test(expr)) throw new Error('Cannot divide by zero.');
-  // Parse arithmetic without eval: recursive descent parser.
-  let i = 0;
-  function number() {
-    let start = i;
-    if (expr[i] === '+' || expr[i] === '-') i++;
-    let digits = false;
-    while (i < expr.length && /[0-9.]/.test(expr[i])) { if (expr[i] >= '0' && expr[i] <= '9') digits = true; i++; }
-    if (!digits || (expr.slice(start,i).match(/\./g)||[]).length > 1) throw new Error('Invalid number.');
-    let n = Number(expr.slice(start,i));
-    if (!Number.isFinite(n)) throw new Error('Invalid number.');
-    return n;
-  }
-  function factor() {
-    let base;
-    if (expr[i] === '(') {
-      i++; base = sum();
-      if (expr[i] !== ')') throw new Error('Missing closing parenthesis.');
-      i++;
-    } else {
-      base = number();
-    }
-    if (expr.slice(i, i + 2) === '**') {
-      i += 2;
-      const exponent = factor();
-      base = Math.pow(base, exponent);
-      if (!Number.isFinite(base)) throw new Error('Result is outside the supported range.');
-    }
-    return base;
-  }
-  function term() {
-    let v = factor();
-    while (i < expr.length && (expr[i] === '*' || expr[i] === '/' || expr[i] === '%')) {
-      let op = expr[i++], rhs = factor();
-      if ((op === '/' || op === '%') && rhs === 0) throw new Error('Cannot divide by zero.');
-      v = op === '*' ? v*rhs : op === '/' ? v/rhs : v%rhs;
-    }
-    return v;
-  }
-  function sum() {
-    let v = term();
-    while (i < expr.length && (expr[i] === '+' || expr[i] === '-')) {
-      let op = expr[i++], rhs = term();
-      v = op === '+' ? v+rhs : v-rhs;
-    }
-    return v;
-  }
-  const result = sum();
-  if (i !== expr.length || !Number.isFinite(result)) throw new Error('Invalid calculation.');
-  return result;
-}
-function formatNumber(n) {
-  if (!Number.isFinite(n)) throw new Error('Result is outside the supported range.');
-  return Number(n.toPrecision(10)).toLocaleString('en-US', {maximumFractionDigits:8});
-}
-function addHistory(type, item) {
-  historyData[type].unshift(item);
-  if (historyData[type].length > 8) historyData[type].pop();
-  const list = document.getElementById(type + '-history-list');
-  list.replaceChildren();
-  historyData[type].forEach(entry => {
-    const div = document.createElement('div');
-    div.className = 'history-item';
-    div.textContent = entry;
-    list.appendChild(div);
-  });
-  document.getElementById(type + '-history').style.display = 'block';
-}
-function calcResult(type) {
-  try {
-    const currentExpr = exprs[type];
-    const result = safeCalculate(currentExpr);
-    const sho
+const calculators = {
+simple:{title:'Simple Calculator',desc:'Add, subtract, multiply or divide two numbers.',fields:[
+{id:'a',label:'First number',type:'number',step:'any',required:true},{id:'op',label:'Operation',type:'select',options:[['+','Addition (+)'],['-','Subtraction (−)'],['*','Multiplication (×)'],['/','Division (÷)']]},{id:'b',label:'Second number',type:'number',step:'any',required:true}],calc:v=>{const a=num(v.a),b=num(v.b);if(v.op==='/'&&b===0)throw Error('You cannot divide by zero.');return [a+b===Infinity?'':fmt(({'+':()=>a+b,'-':()=>a-b,'*':()=>a*b,'/':()=>a/b})[v.op]()),'Basic arithmetic result.'];}},
+scientific:{title:'Scientific Calculator',desc:'Calculate a square, square root, percentage, or power.',fields:[
+{id:'x',label:'Number (x)',type:'number',step:'any',required:true},{id:'sciop',label:'Operation',type:'select',options:[['sqrt','Square root'],['square','Square (x²)'],['abs','Absolute value'],['sin','Sine (degrees)'],['cos','Cosine (degrees)'],['tan','Tangent (degrees)'],['log','Log base 10'],['ln','Natural log'],['exp','e to the power x']]},{id:'y',label:'Power (used for xʸ)',type:'number',step:'any',required:false}],calc:v=>{const x=num(v.x);let n;switch(v.sciop){case'sqrt':if(x<0)throw Error('Square root needs a number ≥ 0.');n=Math.sqrt(x);break;case'square':n=x*x;break;case'abs':n=Math.abs(x);break;case'sin':n=Math.sin(x*Math.PI/180);break;case'cos':n=Math.cos(x*Math.PI/180);break;case'tan':n=Math.tan(x*Math.PI/180);break;case'log':if(x<=0)throw Error('Logarithm needs a number greater than zero.');n=Math.log10(x);break;case'ln':if(x<=0)throw Error('Natural log needs a number greater than zero.');n=Math.log(x);break;case'exp':n=Math.exp(x);break;default:n=Math.pow(x,num(v.y||'0'));}return [fmt(n),'Scientific result.'];}},
+age:{title:'Age Calculator',desc:'Find your age in years, months and days.',fields:[{id:'birth',label:'Date of birth',type:'date',required:true},{id:'asof',label:'Calculate age on (optional)',type:'date'}],calc:v=>{const b=new Date(v.birth+'T00:00:00'),d=v.asof?new Date(v.asof+'T00:00:00'):new Date();d.setHours(0,0,0,0);if(b>d)throw Error('Date of birth must be before the selected date.');let y=d.getFullYear()-b.getFullYear(),m=d.getMonth()-b.getMonth(),day=d.getDate()-b.getDate();if(day<0){m--;day+=new Date(d.getFullYear(),d.getMonth(),0).getDate()}if(m<0){y--;m+=12}return [`${y} years, ${m} months, ${day} days`,'Age as of '+d.toLocaleDateString()];}},
+bmi:{title:'BMI Calculator',desc:'Estimate Body Mass Index using metric or imperial units.',fields:[{id:'unit',label:'Units',type:'select',options:[['metric','Metric (kg, cm)'],['imperial','Imperial (lb, inches)']]},{id:'weight',label:'Weight (kg or lb)',type:'number',step:'any',required:true},{id:'height',label:'Height (cm or inches)',type:'number',step:'any',required:true}],calc:v=>{let w=num(v.weight),h=num(v.height);if(w<=0||h<=0)throw Error('Weight and height must be greater than zero.');let bmi=v.unit==='metric'?w/Math.pow(h/100,2):(w*0.45359237)/Math.pow(h*0.0254,2);let cat=bmi<18.5?'Underweight':bmi<25?'Normal range':bmi<30?'Overweight':'Obesity range';return [fmt(bmi),cat+' (adult screening categories; not a diagnosis).'];}},
+emi:{title:'EMI / Loan Calculator',desc:'Estimate monthly instalment, total payment and interest.',fields:[{id:'principal',label:'Loan amount',type:'number',step:'any',required:true},{id:'rate',label:'Annual interest rate (%)',type:'number',step:'any',required:true},{id:'months',label:'Loan term (months)',type:'number',step:'1',required:true}],calc:v=>{const p=num(v.principal),r=num(v.rate)/1200,n=Math.floor(num(v.months));if(p<=0||n<=0||num(v.rate)<0)throw Error('Loan amount and term must be positive; interest rate cannot be negative.');const emi=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);return [money(emi)+' / month',`Total payment: ${money(emi*n)} · Estimated interest: ${money(emi*n-p)}`];}},
+percentage:{title:'Percentage Calculator',desc:'Find a percentage of a number, or percentage change.',fields:[{id:'mode',label:'Calculation',type:'select',options:[['of','What is X% of Y?'],['change','Percentage change from old to new']]},{id:'x',label:'Percentage X / old value',type:'number',step:'any',required:true},{id:'y',label:'Number Y / new value',type:'number',step:'any',required:true}],calc:v=>{const x=num(v.x),y=num(v.y);if(v.mode==='change'){if(x===0)throw Error('Old value cannot be zero for percentage change.');return [fmt((y-x)/Math.abs(x)*100)+'%','Percentage change from old value to new value.']}return [fmt(x/100*y),`${fmt(x)}% of ${fmt(y)}.`];}},
+zakat:{title:'Zakat Calculator',desc:'A simple 2.5% estimate on eligible zakatable wealth.',fields:[{id:'cash',label:'Cash and bank balances',type:'number',step:'any',required:true},{id:'gold',label:'Eligible gold/silver value',type:'number',step:'any',required:true},{id:'invest',label:'Eligible investments/trade assets',type:'number',step:'any',required:true},{id:'debt',label:'Short-term deductible debts',type:'number',step:'any',required:true},{id:'currency',label:'Currency label (e.g. PKR)',type:'text',required:false}],calc:v=>{const net=num(v.cash)+num(v.gold)+num(v.invest)-num(v.debt);if([v.cash,v.gold,v.invest,v.debt].some(z=>num(z)<0))throw Error('Enter non-negative amounts.');const cur=(v.currency||'PKR').trim().slice(0,8);return [money(net>0?net*.025:0,cur),`Net entered assets: ${money(Math.max(0,net),cur)}. Check nisab, asset eligibility and your religious guidance; this is an estimate only.`];}},
+discount:{title:'Discount Calculator',desc:'Calculate sale price and savings.',fields:[{id:'price',label:'Original price',type:'number',step:'any',required:true},{id:'discount',label:'Discount (%)',type:'number',step:'any',required:true},{id:'currency',label:'Currency label (e.g. PKR)',type:'text',required:false}],calc:v=>{const p=num(v.price),d=num(v.discount);if(p<0||d<0||d>100)throw Error('Price must be non-negative and discount must be between 0 and 100.');const cur=(v.currency||'PKR').trim().slice(0,8);return [money(p*(1-d/100),cur),`You save ${money(p*d/100,cur)}.`];}},
+calories:{title:'Daily Calories Estimate',desc:'A rough adult BMR estimate using Mifflin–St Jeor. This is not medical advice.',fields:[{id:'sex',label:'Formula',type:'select',options:[['female','Female formula'],['male','Male formula']]},{id:'age',label:'Age (years)',type:'number',step:'1',required:true},{id:'weight',label:'Weight (kg)',type:'number',step:'any',required:true},{id:'height',label:'Height (cm)',type:'number',step:'any',required:true},{id:'activity',label:'Activity multiplier',type:'select',options:[['1.2','Sedentary (1.2)'],['1.375','Light (1.375)'],['1.55','Moderate (1.55)'],['1.725','Very active (1.725)'],['1.9','Extra active (1.9)']]}],calc:v=>{const a=num(v.age),w=num(v.weight),h=num(v.height);if(a<=0||w<=0||h<=0)throw Error('Age, weight and height must be positive.');const bmr=10*w+6.25*h-5*a+(v.sex==='male'?5:-161),daily=bmr*num(v.activity);return [fmt(Math.round(daily))+' kcal/day',`Estimated maintenance calories: BMR ≈ ${Math.round(bmr)} kcal/day. Individual needs vary.`];}},
+water:{title:'Daily Water Estimate',desc:'A simple starting estimate based on body weight.',fields:[{id:'weight',label:'Weight (kg)',type:'number',step:'any',required:true},{id:'activity',label:'Activity / heat adjustment',type:'select',options:[['0','Usual day'],['0.35','Add 350 ml for activity/heat'],['0.7','Add 700 ml for heavy activity/heat']]}],calc:v=>{const w=num(v.weight);if(w<=0)throw Error('Weight must be greater than zero.');return [fmt((w*0.035+num(v.activity))*1000)+' ml/day','General estimate only. Needs vary; follow medical advice and do not force excess water.'];}}
+};
+const tabsEl=document.getElementById('tabs'),fieldsEl=document.getElementById('fields'),form=document.getElementById('calcForm');
+let current='simple',historyItems=[];
+function num(v){const n=Number(v);if(!Number.isFinite(n))throw Error('Please enter valid numbers in all required fields.');return n}
+function fmt(n){if(!Number.isFinite(n))throw Error('The result is outside the supported number range.');return new Intl.NumberFormat(undefined,{maximumFractionDigits:8}).format(n)}
+function money(n,c='PKR'){return `${c||'PKR'} ${new Intl.NumberFormat(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}).format(n)}`}
+function buildTabs(){tabsEl.innerHTML='';Object.entries(calculators).forEach(([id,c])=>{const b=document.createElement('button');b.type='button';b.className='tab'+(id===current?' active':'');b.textContent=c.title.replace(' Calculator','').replace(' / Loan','');b.setAttribute('aria-pressed',String(id===current));b.addEventListener('click',()=>selectCalc(id));tabsEl.appendChild(b)})}
+function renderFields(c){fieldsEl.innerHTML='';c.fields.forEach(f=>{const wrap=document.createElement('div');wrap.className='field';if(f.type==='text')wrap.classList.add('full');const label=document.createElement('label');label.htmlFor='f_'+f.id;label.textContent=f.label;let input;if(f.type==='select'){input=document.createElement('select');f.options.forEach(([value,text])=>{const o=document.createElement('option');o.value=value;o.textContent=text;input.appendChild(o)})}else{input=document.createElement('input');input.type=f.type||'text';if(f.step)input.step=f.step;if(f.type==='number')input.inputMode='decimal';}input.id='f_'+f.id;input.name=f.id;if(f.required)input.required=true;if(f.type==='number')input.placeholder='Enter value';wrap.append(label,input);fieldsEl.appendChild(wrap)})}
+function selectCalc(id){current=id;const c=calculators[id];document.getElementById('calcTitle').textContent=c.title;document.getElementById('calcDesc').textContent=c.desc;document.getElementById('resultBox').classList.remove('show');renderFields(c);buildTabs()}
+function getValues(){const values={};calculators[current].fields.forEach(f=>{const el=document.getElementById('f_'+f.id);values[f.id]=el?el.value:''});return values}
+function showResult(label,value,note){document.getElementById('resultLabel').textContent=label;document.getElementById('resultValue').textContent=value;document.getElementById('resultNote').textContent=note||'';document.getElementById('resultBox').classList.add('show')}
+form.addEventListener('submit',e=>{e.preventDefault();try{const values=getValues();for(const f of calculators[current].fields){if(f.required&&!values[f.id])throw Error('Please complete: '+f.label+'.')}const [value,note]=calculators[current].calc(values);showResult('Result',value,note);addHistory(calculators[current].title,value)}catch(err){showResult('Please check your entries',err.message,'');document.getElementById('resultBox').classList.add('show')}});
+document.getElementById('resetBtn').addEventListener('click',()=>{form.reset();document.getElementById('resultBox').classList.remove('show')});
+function addHistory(title,value){historyItems.unshift({title,value,time:new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})});historyItems=historyItems.slice(0,12);try{localStorage.setItem('sch_history',JSON.stringify(historyItems))}catch(e){}renderHistory()}
+function renderHistory(){const list=document.getElementById('historyList');list.innerHTML='';if(!historyItems.length){const li=document.createElement('li');li.className='empty';li.textContent='No calculations yet.';list.appendChild(li);return}historyItems.forEach(item=>{const li=document.createElement('li');const strong=document.createElement('strong');strong.textContent=item.title;const div=document.createElement('div');div.textContent=item.value;const small=document.createElement('span');small.className='small';small.textContent=item.time;li.append(strong,div,small);list.appendChild(li)})}
+function clearHistory(){historyItems=[];try{localStorage.removeItem('sch_history')}catch(e){}renderHistory()}
+document.getElementById('clearHistory').addEventListener('click',clearHistory);document.getElementById('clearHistoryTop').addEventListener('click',clearHistory);
+document.getElementById('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('dark');const dark=document.body.classList.contains('dark');document.getElementById('themeBtn').textContent=dark?'☀️ Light mode':'🌙 Dark mode';try{localStorage.setItem('sch_theme',dark?'dark':'light')}catch(e){}});
+document.getElementById('aboutLink').addEventListener('click',e=>{e.preventDefault();alert('Smart-Calc-Hub provides free browser-based everyday calculators. Results are estimates and should be checked for important decisions.')});
+document.getElementById('privacyLink').addEventListener('click',e=>{e.preventDefault();alert('Calculations run in your browser. Recent calculation history and theme preference may be stored locally on this device. This page does not send calculator entries to a server.')});
+document.getElementById('year').textContent=new Date().getFullYear();
+try{const saved=JSON.parse(localStorage.getItem('sch_history')||'[]');if(Array.isArray(saved))historyItems=saved.slice(0,12);if(localStorage.getItem('sch_theme')==='dark'){document.body.classList.add('dark');document.getElementById('themeBtn').textContent='☀️ Light mode'}}catch(e){}
+selectCalc('simple');renderHistory();
+</script>
+</body>
+</html>
