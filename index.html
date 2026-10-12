@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart-Calc-Hub | Multi-Tool Calculator Suite</title>
+    <title>Smart-Calc-Hub | Ultimate Multi-Tool & Scientific Calculator Suite</title>
     <style>
         :root {
             --primary: #4f46e5;
@@ -52,19 +52,20 @@
         .nav-tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
             margin-bottom: 25px;
         }
 
         .tab-btn {
-            padding: 10px 18px;
+            padding: 8px 14px;
             border: 1px solid var(--border);
             background: var(--card-bg);
             color: var(--text);
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.2s ease;
         }
 
@@ -139,28 +140,34 @@
             font-weight: bold;
         }
 
-        /* Standard Calculator Grid */
-        .std-display {
+        /* Calculator Displays & Grids */
+        .calc-display {
             width: 100%;
-            height: 50px;
+            height: 55px;
             background: #f1f5f9;
             border: 1px solid var(--border);
             border-radius: 8px;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             text-align: right;
             padding: 10px;
             margin-bottom: 15px;
         }
 
-        .std-grid {
+        .calc-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
         }
 
-        .std-btn {
-            padding: 15px;
-            font-size: 1.2rem;
+        .sci-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .calc-btn {
+            padding: 14px;
+            font-size: 1.1rem;
             font-weight: bold;
             border: 1px solid var(--border);
             background: #fff;
@@ -168,17 +175,22 @@
             cursor: pointer;
         }
 
-        .std-btn:hover {
+        .calc-btn:hover {
             background: #e2e8f0;
         }
 
-        .std-btn.op {
+        .calc-btn.op {
             background: var(--primary);
             color: white;
         }
 
-        .std-btn.op:hover {
+        .calc-btn.op:hover {
             background: var(--primary-hover);
+        }
+
+        .calc-btn.sci {
+            background: #e0e7ff;
+            color: var(--primary);
         }
     </style>
 </head>
@@ -187,11 +199,12 @@
 <div class="container">
     <header>
         <h1>Smart-Calc-Hub</h1>
-        <p>A complete multi-tool calculator hub for everyday math, age, health, and finance calculations.</p>
+        <p>Your ultimate destination for everyday math, scientific equations, age, health, and financial calculations.</p>
     </header>
 
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchCalc('standard', event)">Simple Calc (+ - × ÷)</button>
+        <button class="tab-btn active" onclick="switchCalc('standard', event)">Simple Calc</button>
+        <button class="tab-btn" onclick="switchCalc('scientific', event)">Scientific</button>
         <button class="tab-btn" onclick="switchCalc('age', event)">Age</button>
         <button class="tab-btn" onclick="switchCalc('bmi', event)">BMI</button>
         <button class="tab-btn" onclick="switchCalc('emi', event)">Loan EMI</button>
@@ -199,33 +212,74 @@
         <button class="tab-btn" onclick="switchCalc('zakat', event)">Zakat</button>
     </div>
 
-    <!-- Standard (+ - * /) Calculator -->
+    <!-- Standard Calculator -->
     <div id="standard" class="calc-card active">
         <h2>Simple Calculator</h2>
-        <input type="text" id="std-display" class="std-display" readonly value="0">
-        <div class="std-grid">
-            <button class="std-btn" onclick="clearStd()">C</button>
-            <button class="std-btn" onclick="delStd()">⌫</button>
-            <button class="std-btn op" onclick="pressStd('/')">÷</button>
-            <button class="std-btn op" onclick="pressStd('*')">×</button>
+        <input type="text" id="std-display" class="calc-display" readonly value="0">
+        <div class="calc-grid">
+            <button class="calc-btn" onclick="clearDisplay('std')">C</button>
+            <button class="calc-btn" onclick="deleteChar('std')">⌫</button>
+            <button class="calc-btn op" onclick="pressKey('std', '/')">÷</button>
+            <button class="calc-btn op" onclick="pressKey('std', '*')">×</button>
 
-            <button class="std-btn" onclick="pressStd('7')">7</button>
-            <button class="std-btn" onclick="pressStd('8')">8</button>
-            <button class="std-btn" onclick="pressStd('9')">9</button>
-            <button class="std-btn op" onclick="pressStd('-')">-</button>
+            <button class="calc-btn" onclick="pressKey('std', '7')">7</button>
+            <button class="calc-btn" onclick="pressKey('std', '8')">8</button>
+            <button class="calc-btn" onclick="pressKey('std', '9')">9</button>
+            <button class="calc-btn op" onclick="pressKey('std', '-')">-</button>
 
-            <button class="std-btn" onclick="pressStd('4')">4</button>
-            <button class="std-btn" onclick="pressStd('5')">5</button>
-            <button class="std-btn" onclick="pressStd('6')">6</button>
-            <button class="std-btn op" onclick="pressStd('+')">+</button>
+            <button class="calc-btn" onclick="pressKey('std', '4')">4</button>
+            <button class="calc-btn" onclick="pressKey('std', '5')">5</button>
+            <button class="calc-btn" onclick="pressKey('std', '6')">6</button>
+            <button class="calc-btn op" onclick="pressKey('std', '+')">+</button>
 
-            <button class="std-btn" onclick="pressStd('1')">1</button>
-            <button class="std-btn" onclick="pressStd('2')">2</button>
-            <button class="std-btn" onclick="pressStd('3')">3</button>
-            <button class="std-btn op" onclick="calcStd()">=</button>
+            <button class="calc-btn" onclick="pressKey('std', '1')">1</button>
+            <button class="calc-btn" onclick="pressKey('std', '2')">2</button>
+            <button class="calc-btn" onclick="pressKey('std', '3')">3</button>
+            <button class="calc-btn op" onclick="calculateResult('std')">=</button>
 
-            <button class="std-btn" style="grid-column: span 2;" onclick="pressStd('0')">0</button>
-            <button class="std-btn" onclick="pressStd('.')">.</button>
+            <button class="calc-btn" style="grid-column: span 2;" onclick="pressKey('std', '0')">0</button>
+            <button class="calc-btn" onclick="pressKey('std', '.')">.</button>
+        </div>
+    </div>
+
+    <!-- Scientific Calculator -->
+    <div id="scientific" class="calc-card">
+        <h2>Scientific Calculator</h2>
+        <input type="text" id="sci-display" class="calc-display" readonly value="0">
+        <div class="sci-grid">
+            <button class="calc-btn sci" onclick="sciFunc('sin')">sin</button>
+            <button class="calc-btn sci" onclick="sciFunc('cos')">cos</button>
+            <button class="calc-btn sci" onclick="sciFunc('tan')">tan</button>
+            <button class="calc-btn sci" onclick="sciFunc('sqrt')">√</button>
+            <button class="calc-btn sci" onclick="sciFunc('sq')">x²</button>
+
+            <button class="calc-btn" onclick="clearDisplay('sci')">C</button>
+            <button class="calc-btn" onclick="deleteChar('sci')">⌫</button>
+            <button class="calc-btn" onclick="pressKey('sci', '(')">(</button>
+            <button class="calc-btn" onclick="pressKey('sci', ')')">)</button>
+            <button class="calc-btn op" onclick="pressKey('sci', '/')">÷</button>
+
+            <button class="calc-btn" onclick="pressKey('sci', '7')">7</button>
+            <button class="calc-btn" onclick="pressKey('sci', '8')">8</button>
+            <button class="calc-btn" onclick="pressKey('sci', '9')">9</button>
+            <button class="calc-btn op" onclick="pressKey('sci', '*')">×</button>
+            <button class="calc-btn sci" onclick="pressKey('sci', '**')">^</button>
+
+            <button class="calc-btn" onclick="pressKey('sci', '4')">4</button>
+            <button class="calc-btn" onclick="pressKey('sci', '5')">5</button>
+            <button class="calc-btn" onclick="pressKey('sci', '6')">6</button>
+            <button class="calc-btn op" onclick="pressKey('sci', '-')">-</button>
+            <button class="calc-btn sci" onclick="pressKey('sci', Math.PI)">π</button>
+
+            <button class="calc-btn" onclick="pressKey('sci', '1')">1</button>
+            <button class="calc-btn" onclick="pressKey('sci', '2')">2</button>
+            <button class="calc-btn" onclick="pressKey('sci', '3')">3</button>
+            <button class="calc-btn op" onclick="pressKey('sci', '+')">+</button>
+            <button class="calc-btn op" onclick="calculateResult('sci')" style="grid-row: span 2; height: 100%;">=</button>
+
+            <button class="calc-btn" style="grid-column: span 2;" onclick="pressKey('sci', '0')">0</button>
+            <button class="calc-btn" onclick="pressKey('sci', '.')">.</button>
+            <button class="calc-btn sci" onclick="pressKey('sci', Math.E)">e</button>
         </div>
     </div>
 
@@ -309,34 +363,58 @@
         if(ev && ev.target) ev.target.classList.add('active');
     }
 
-    /* Standard Calculator Logic */
-    let stdExpr = "";
-    function pressStd(val) {
-        if(document.getElementById('std-display').value === "0" && val !== ".") {
-            stdExpr = "";
+    let exprs = { std: "", sci: "" };
+
+    function pressKey(type, val) {
+        let display = document.getElementById(type + '-display');
+        if (exprs[type] === "0" && val !== ".") {
+            exprs[type] = "";
         }
-        stdExpr += val;
-        document.getElementById('std-display').value = stdExpr;
+        exprs[type] += val;
+        display.value = exprs[type];
     }
-    function clearStd() {
-        stdExpr = "";
-        document.getElementById('std-display').value = "0";
+
+    function clearDisplay(type) {
+        exprs[type] = "";
+        document.getElementById(type + '-display').value = "0";
     }
-    function delStd() {
-        stdExpr = stdExpr.slice(0, -1);
-        document.getElementById('std-display').value = stdExpr || "0";
+
+    function deleteChar(type) {
+        exprs[type] = exprs[type].slice(0, -1);
+        document.getElementById(type + '-display').value = exprs[type] || "0";
     }
-    function calcStd() {
+
+    function calculateResult(type) {
+        let display = document.getElementById(type + '-display');
         try {
-            stdExpr = eval(stdExpr).toString();
-            document.getElementById('std-display').value = stdExpr;
-        } catch(e) {
-            document.getElementById('std-display').value = "Error";
-            stdExpr = "";
+            let res = eval(exprs[type]);
+            exprs[type] = res.toString();
+            display.value = exprs[type];
+        } catch (e) {
+            display.value = "Error";
+            exprs[type] = "";
         }
     }
 
-    /* Other Calculators */
+    function sciFunc(func) {
+        let display = document.getElementById('sci-display');
+        try {
+            let val = eval(exprs['sci'] || "0");
+            let res = 0;
+            if (func === 'sin') res = Math.sin(val * Math.PI / 180);
+            else if (func === 'cos') res = Math.cos(val * Math.PI / 180);
+            else if (func === 'tan') res = Math.tan(val * Math.PI / 180);
+            else if (func === 'sqrt') res = Math.sqrt(val);
+            else if (func === 'sq') res = val * val;
+            
+            exprs['sci'] = res.toString();
+            display.value = exprs['sci'];
+        } catch (e) {
+            display.value = "Error";
+            exprs['sci'] = "";
+        }
+    }
+
     function calcAge() {
         const dob = new Date(document.getElementById('dob').value);
         if (isNaN(dob)) return;
