@@ -1,11 +1,11 @@
 {
-  "name": "Smart-Calc-Hub",
-  "short_name": "SmartCalc",
+  "name": "Calculator10",
+  "short_name": "Calculator10",
   "description": "Free calculators for everyday math, money and health, plus math formulas (فارمولا).",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#16231F",
+  "background_color": "#0B1033",
   "theme_color": "#16231F",
   "icons": [
     {
