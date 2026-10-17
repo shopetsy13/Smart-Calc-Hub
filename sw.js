@@ -1,8 +1,8 @@
 /* Calculator10 service worker. Bump VERSION whenever site files change. */
-const VERSION = 'v20';
+const VERSION = 'v21';
 const CORE = 'smartcalc-core-' + VERSION;
 const RUNTIME = 'smartcalc-rt-' + VERSION;
-const PRECACHE = ['/', '/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png', '/privacy.html', '/about.html', '/contact.html', '/404.html', '/owner.jpg', '/favicon.ico', '/favicon-32.png', '/zakat-calculator.html', '/zakat.js', '/bmi-calculator.html', '/bmi.js', '/emi-calculator.html', '/emi.js'];
+const PRECACHE = ['/', '/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png', '/privacy.html', '/about.html', '/contact.html', '/404.html', '/owner.jpg', '/favicon.ico', '/favicon-32.png', '/zakat-calculator.html', '/zakat.js', '/bmi-calculator.html', '/bmi.js', '/emi-calculator.html', '/emi.js', '/gst-calculator.html', '/gst.js'];
 const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
 self.addEventListener('install', e => {
